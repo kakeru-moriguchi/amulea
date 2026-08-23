@@ -4,7 +4,7 @@ import Photo from "@/components/Photo";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import { ArrowRightIcon, ClockIcon, InstagramIcon, LineIcon } from "@/components/icons";
-import { menuItems } from "@/data/menu";
+import { menuGroups } from "@/data/menu";
 import { priceGroups, formatPrice } from "@/data/price";
 import { site } from "@/data/site";
 import { therapist } from "@/data/therapist";
@@ -204,32 +204,43 @@ export default function HomePage() {
             </p>
           </Reveal>
 
-          <ul className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {menuItems.map((item, i) => (
-              <li key={item.id}>
-                <Reveal delay={i * 0.08}>
-                  <Link href="/menu" className="group block">
-                    <Photo
-                      src={item.photo.src}
-                      alt={item.photo.alt}
-                      tone={i % 2 === 0 ? "ivory" : "champagne"}
-                      className="aspect-[3/4] rounded-[2px]"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    />
-                    <p className="mt-5 font-display text-[0.6rem] tracking-[0.3em] text-champagne-600 uppercase">
-                      {item.nameEn}
-                    </p>
-                    <h3 className="mt-2 text-[1.02rem] tracking-[0.1em] text-umber-800 transition-colors duration-300 group-hover:text-champagne-600">
-                      {item.name}
-                    </h3>
-                    <p className="mt-3 text-[0.82rem] leading-[1.95] text-umber-700/70">
-                      {item.lead}
-                    </p>
-                  </Link>
-                </Reveal>
-              </li>
+          {/* メニューの種類ごとに、内容を一覧で紹介します */}
+          <div className="mt-16 grid gap-6 lg:grid-cols-3">
+            {menuGroups.map((group, gi) => (
+              <Reveal key={group.id} delay={gi * 0.1}>
+                <Link
+                  href={`/menu#${group.id}`}
+                  className="group flex h-full flex-col border border-champagne-400/35 bg-ivory px-7 py-9 transition-colors duration-300 hover:border-champagne-500/60 sm:px-8"
+                >
+                  <p className="font-display text-[0.6rem] tracking-[0.3em] text-champagne-600 uppercase">
+                    {group.title}
+                  </p>
+                  <h3 className="mt-2.5 text-[1.1rem] tracking-[0.12em] text-umber-800 transition-colors duration-300 group-hover:text-champagne-600">
+                    {group.titleJa}
+                  </h3>
+                  <div className="gold-rule my-6 w-12" aria-hidden="true" />
+
+                  <ul className="flex flex-1 flex-col gap-4">
+                    {group.items.map((item) => (
+                      <li key={item.id}>
+                        <p className="text-[0.9rem] tracking-[0.08em] text-umber-800">
+                          {item.name}
+                        </p>
+                        <p className="mt-1 text-[0.8rem] leading-[1.9] text-umber-700/70">
+                          {item.lead}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <span className="mt-7 inline-flex items-center gap-2 text-[0.78rem] tracking-[0.16em] text-champagne-700">
+                    詳しく見る
+                    <ArrowRightIcon className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                  </span>
+                </Link>
+              </Reveal>
             ))}
-          </ul>
+          </div>
 
           <Reveal>
             <div className="mt-16 flex flex-col items-center justify-center gap-3.5 sm:flex-row">
