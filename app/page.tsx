@@ -2,6 +2,7 @@ import Link from "next/link";
 import ButtonLink from "@/components/ButtonLink";
 import Photo from "@/components/Photo";
 import Reveal from "@/components/Reveal";
+import RichText from "@/components/RichText";
 import SectionHeading from "@/components/SectionHeading";
 import { ArrowRightIcon, ClockIcon, InstagramIcon, LineIcon } from "@/components/icons";
 import { menuGroups } from "@/data/menu";
@@ -176,9 +177,17 @@ export default function HomePage() {
               <p className="mt-2 text-[0.62rem] tracking-[0.35em] text-champagne-400/80 uppercase">
                 {therapist.nameEn} / {therapist.role}
               </p>
-              <p className="mt-8 max-w-lg text-[0.88rem] leading-[2.3] text-ivory/75 sm:text-[0.95rem]">
-                {therapist.introduction.paragraphs[0]}
-              </p>
+              {/* 自己紹介の冒頭2段落を抜粋して掲載します */}
+              <div className="mt-8 max-w-lg space-y-5">
+                {therapist.introduction.paragraphs.slice(0, 2).map((p) => (
+                  <RichText
+                    key={p.slice(0, 14)}
+                    text={p}
+                    className="text-[0.88rem] leading-[2.3] text-ivory/75 sm:text-[0.95rem]"
+                    emphasisClassName="text-champagne-300"
+                  />
+                ))}
+              </div>
               <div className="mt-10">
                 <ButtonLink href="/therapist" variant="outline" tone="dark">
                   セラピストについて
