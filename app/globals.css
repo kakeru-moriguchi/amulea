@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+/* ==================================================================
+   Amulea ブランドカラー
+   ------------------------------------------------------------------
+   フォレストグリーン / シャンパンゴールド / アイボリー の3系統。
+   色を調整したい場合は、この @theme ブロックの値を変更してください。
+   ================================================================== */
+@theme {
+  /* フォレストグリーン */
+  --color-forest-50: #eef4f0;
+  --color-forest-100: #d6e5dc;
+  --color-forest-200: #adc9bb;
+  --color-forest-300: #7fa793;
+  --color-forest-400: #4f8069;
+  --color-forest-500: #33624c;
+  --color-forest-600: #244b3a;
+  --color-forest-700: #1b3b2e;
+  --color-forest-800: #142d23;
+  --color-forest-900: #0d1f18;
+
+  /* シャンパンゴールド */
+  --color-champagne-50: #fbf7ee;
+  --color-champagne-100: #f4ecd9;
+  --color-champagne-200: #ebdcb9;
+  --color-champagne-300: #dfc894;
+  --color-champagne-400: #cdae72;
+  --color-champagne-500: #bd9a58;
+  --color-champagne-600: #a8823f;
+  --color-champagne-700: #876735;
+  --color-champagne-800: #6a5130;
+
+  /* アイボリー（背景） */
+  --color-ivory: #fbf8f2;
+  --color-ivory-deep: #f3ede1;
+
+  --font-serif-ja: var(--font-shippori), "Hiragino Mincho ProN", "Yu Mincho",
+    "YuMincho", serif;
+  --font-display: var(--font-cormorant), "Hiragino Mincho ProN", serif;
+}
+
+/* ------------------------------------------------------------------
+   ベース
+   ------------------------------------------------------------------ */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-ivory);
+  color: var(--color-forest-800);
+  font-family: var(--font-serif-ja);
+  font-feature-settings: "palt";
+  line-height: 1.9;
+  overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* 見出しの英字 */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.08em;
+}
+
+/* 縦書きの装飾ラベル（PC のみ使用） */
+.vertical-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* ------------------------------------------------------------------
+   スクロールに合わせて要素をふわりと表示させる演出
+   （JS で .is-visible が付与されます / JS 無効時も必ず表示されます）
+   ------------------------------------------------------------------ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------------------
+   細い金の区切り線
+   ------------------------------------------------------------------ */
+.gold-rule {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-champagne-400),
+    transparent
+  );
+}
+
+/* フォーカスリング（キーボード操作時のみ） */
+:focus-visible {
+  outline: 2px solid var(--color-champagne-500);
+  outline-offset: 3px;
+}
