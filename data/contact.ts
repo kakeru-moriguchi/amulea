@@ -44,9 +44,9 @@ export const reservationMethods: ReservationMethod[] = [
   {
     id: "instagram",
     titleEn: "Instagram",
-    title: "Instagram DM",
+    title: "Instagram",
     description:
-      "Instagram のダイレクトメッセージからもご予約を承っております。サロンの雰囲気や施術の様子も投稿しておりますので、あわせてご覧ください。",
+      "サロンの雰囲気や施術の様子も投稿しておりますので、あわせてご覧ください。",
     actionLabel: "Instagramを見る",
     href: site.links.instagram,
     external: true,

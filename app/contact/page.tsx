@@ -6,7 +6,7 @@ import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import { ArrowRightIcon, ClockIcon, InstagramIcon, LineIcon } from "@/components/icons";
-import { reservationMethods } from "@/data/contact";
+import { reservationMethods, type ReservationMethod } from "@/data/contact";
 import { site } from "@/data/site";
 
 /**
@@ -22,6 +22,11 @@ export const metadata: Metadata = {
   description:
     "Amulea のご予約・お問い合わせページ。公式LINE・Instagram からご予約とお問い合わせを承っております。",
 };
+
+/** 英字ラベルを表示するか（見出しと同じ言葉なら表示しない） */
+function showTitleEn(method: ReservationMethod): boolean {
+  return method.titleEn.toLowerCase() !== method.title.toLowerCase();
+}
 
 /** 予約方法ごとのアイコン */
 function MethodIcon({ id, className }: { id: string; className?: string }) {
@@ -77,17 +82,25 @@ export default function ContactPage() {
 
                   {/* 見出しと説明 */}
                   <div className="md:flex-1">
-                    <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                      <p className="font-display text-[0.6rem] tracking-[0.32em] text-champagne-600 uppercase">
-                        {method.titleEn}
-                      </p>
-                      {method.primary && (
-                        <span className="rounded-full bg-champagne-500/20 px-3 py-0.5 text-[0.62rem] tracking-[0.16em] text-champagne-700">
-                          おすすめ
-                        </span>
-                      )}
-                    </div>
-                    <h3 className="mt-2 text-[1.1rem] tracking-[0.14em] text-forest-800">
+                    {/*
+                      英字ラベル（titleEn）が見出し（title）と同じ文字列のときは、
+                      同じ言葉が二段に重なってしまうため表示しません。
+                    */}
+                    {(showTitleEn(method) || method.primary) && (
+                      <div className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-2">
+                        {showTitleEn(method) && (
+                          <p className="font-display text-[0.6rem] tracking-[0.32em] text-champagne-600 uppercase">
+                            {method.titleEn}
+                          </p>
+                        )}
+                        {method.primary && (
+                          <span className="rounded-full bg-champagne-500/20 px-3 py-0.5 text-[0.62rem] tracking-[0.16em] text-champagne-700">
+                            おすすめ
+                          </span>
+                        )}
+                      </div>
+                    )}
+                    <h3 className="text-[1.1rem] tracking-[0.14em] text-forest-800">
                       {method.title}
                     </h3>
                     <p className="mt-3 max-w-xl text-[0.85rem] leading-[2.1] text-forest-700/80">
