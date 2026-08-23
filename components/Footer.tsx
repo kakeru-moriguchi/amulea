@@ -5,7 +5,7 @@ import { InstagramIcon, LineIcon } from "./icons";
 /** サイト共通フッター */
 export default function Footer() {
   return (
-    <footer className="bg-forest-800 text-ivory">
+    <footer className="bg-umber-800 text-ivory">
       <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-20">
         <div className="grid gap-12 md:grid-cols-[1.1fr_1fr_1fr]">
           {/* ロゴとサロン紹介 */}

@@ -10,7 +10,7 @@ import Image from "next/image";
  * data/ 配下のファイルの src を "/images/xxx.jpg" に変更するだけです。
  */
 
-export type PhotoTone = "forest" | "champagne" | "ivory";
+export type PhotoTone = "umber" | "champagne" | "ivory";
 
 type Props = {
   src?: string;
@@ -26,27 +26,27 @@ type Props = {
 };
 
 const toneStyles: Record<PhotoTone, { bg: string; motif: string; label: string }> = {
-  forest: {
-    bg: "bg-[linear-gradient(150deg,var(--color-forest-700),var(--color-forest-900))]",
+  umber: {
+    bg: "bg-[linear-gradient(150deg,var(--color-umber-700),var(--color-umber-900))]",
     motif: "text-champagne-300/40",
     label: "text-champagne-200/70",
   },
   champagne: {
     bg: "bg-[linear-gradient(150deg,var(--color-champagne-200),var(--color-champagne-400))]",
-    motif: "text-forest-800/25",
-    label: "text-forest-800/60",
+    motif: "text-umber-800/25",
+    label: "text-umber-800/60",
   },
   ivory: {
     bg: "bg-[linear-gradient(150deg,var(--color-ivory),var(--color-ivory-deep))]",
     motif: "text-champagne-500/35",
-    label: "text-forest-700/50",
+    label: "text-umber-700/50",
   },
 };
 
 export default function Photo({
   src,
   alt,
-  tone = "forest",
+  tone = "umber",
   className = "aspect-[4/5]",
   priority = false,
   sizes = "(max-width: 768px) 100vw, 50vw",

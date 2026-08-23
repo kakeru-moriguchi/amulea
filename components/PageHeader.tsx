@@ -11,7 +11,7 @@ export default function PageHeader({
   ja,
   lead,
   photoSrc,
-  tone = "forest",
+  tone = "umber",
 }: {
   en: string;
   ja: string;
@@ -33,7 +33,7 @@ export default function PageHeader({
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-[linear-gradient(to_top,rgba(13,31,24,0.88),rgba(13,31,24,0.55)_55%,rgba(13,31,24,0.35))]"
+          className="absolute inset-0 bg-[linear-gradient(to_top,rgba(30,23,16,0.88),rgba(30,23,16,0.55)_55%,rgba(30,23,16,0.35))]"
         />
       </div>
 

@@ -58,13 +58,13 @@ export default function TherapistPage() {
                 {therapist.role}
               </p>
               <div className="gold-rule my-6 w-16" aria-hidden="true" />
-              <h2 className="text-[2.2rem] tracking-[0.22em] text-forest-800 sm:text-[2.8rem]">
+              <h2 className="text-[2.2rem] tracking-[0.22em] text-umber-800 sm:text-[2.8rem]">
                 {therapist.name}
               </h2>
               <p className="font-display mt-3 text-[0.7rem] tracking-[0.35em] text-champagne-600/80 uppercase">
                 {therapist.nameEn}
               </p>
-              <p className="mt-9 text-[0.95rem] leading-[2.2] text-forest-700">
+              <p className="mt-9 text-[0.95rem] leading-[2.2] text-umber-700">
                 {therapist.lead}
               </p>
             </div>
@@ -88,7 +88,7 @@ export default function TherapistPage() {
               {therapist.introduction.paragraphs.map((p) => (
                 <p
                   key={p.slice(0, 12)}
-                  className="text-[0.88rem] leading-[2.3] text-forest-700/90 sm:text-[0.95rem]"
+                  className="text-[0.88rem] leading-[2.3] text-umber-700/90 sm:text-[0.95rem]"
                 >
                   {p}
                 </p>
@@ -101,7 +101,7 @@ export default function TherapistPage() {
       {/* ============================================================
           サロンを始めた想い
           ============================================================ */}
-      <section className="relative overflow-hidden bg-forest-800 px-5 py-20 sm:px-8 sm:py-28">
+      <section className="relative overflow-hidden bg-umber-800 px-5 py-20 sm:px-8 sm:py-28">
         <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1fr_0.8fr] lg:items-center lg:gap-20">
           <Reveal>
             <div>
@@ -132,7 +132,7 @@ export default function TherapistPage() {
             <Photo
               src=""
               alt="Amulea の施術室"
-              tone="forest"
+              tone="umber"
               className="aspect-[4/5] rounded-[2px]"
               sizes="(max-width: 1024px) 100vw, 40vw"
             />
@@ -165,13 +165,13 @@ export default function TherapistPage() {
               {therapist.message.paragraphs.map((p) => (
                 <p
                   key={p.slice(0, 12)}
-                  className="text-[0.88rem] leading-[2.3] text-forest-700/90 sm:text-[0.95rem]"
+                  className="text-[0.88rem] leading-[2.3] text-umber-700/90 sm:text-[0.95rem]"
                 >
                   {p}
                 </p>
               ))}
             </div>
-            <p className="mt-10 text-right text-[0.9rem] tracking-[0.16em] text-forest-800">
+            <p className="mt-10 text-right text-[0.9rem] tracking-[0.16em] text-umber-800">
               Amulea　{therapist.name}
             </p>
           </Reveal>
@@ -182,7 +182,7 @@ export default function TherapistPage() {
           ページ下部の導線
           ============================================================ */}
       <PageActions note="施術の内容は、メニューページでご覧いただけます。">
-        <ButtonLink href="/menu" variant="forest">
+        <ButtonLink href="/menu" variant="umber">
           メニューを見る
         </ButtonLink>
         <ButtonLink href="/contact" variant="gold">

@@ -18,7 +18,7 @@ export default function PageActions({
       <div className="mx-auto max-w-3xl text-center">
         <div className="gold-rule mx-auto w-24" aria-hidden="true" />
         {note && (
-          <p className="mt-8 text-[0.88rem] leading-[2] text-forest-700/80">
+          <p className="mt-8 text-[0.88rem] leading-[2] text-umber-700/80">
             {note}
           </p>
         )}

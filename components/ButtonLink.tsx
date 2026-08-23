@@ -7,7 +7,7 @@ import type { ReactNode } from "react";
  *
  * 【variant】
  *   gold    … シャンパンゴールドの塗り（主要導線：ご予約など）
- *   forest  … フォレストグリーンの塗り（次点の導線：メニュー・料金表など）
+ *   umber   … ディープブラウンの塗り（次点の導線：メニュー・料金表など）
  *   outline … 細い金の枠線（補助的な導線）
  *
  * 【tone】
@@ -17,7 +17,7 @@ import type { ReactNode } from "react";
  *             濃い背景の上では必ず tone="dark" を指定してください。
  */
 
-type Variant = "gold" | "forest" | "outline";
+type Variant = "gold" | "umber" | "outline";
 type Tone = "light" | "dark";
 
 type Props = {
@@ -40,17 +40,17 @@ const base =
 const styles: Record<Variant, Record<Tone, string>> = {
   gold: {
     light:
-      "bg-champagne-500 text-forest-900 shadow-[0_6px_20px_-8px_rgba(168,130,63,0.7)] hover:bg-champagne-400 hover:shadow-[0_10px_28px_-8px_rgba(168,130,63,0.8)] hover:-translate-y-0.5",
-    dark: "bg-champagne-500 text-forest-900 shadow-[0_6px_20px_-8px_rgba(168,130,63,0.7)] hover:bg-champagne-400 hover:shadow-[0_10px_28px_-8px_rgba(168,130,63,0.8)] hover:-translate-y-0.5",
+      "bg-champagne-500 text-umber-900 shadow-[0_6px_20px_-8px_rgba(168,130,63,0.7)] hover:bg-champagne-400 hover:shadow-[0_10px_28px_-8px_rgba(168,130,63,0.8)] hover:-translate-y-0.5",
+    dark: "bg-champagne-500 text-umber-900 shadow-[0_6px_20px_-8px_rgba(168,130,63,0.7)] hover:bg-champagne-400 hover:shadow-[0_10px_28px_-8px_rgba(168,130,63,0.8)] hover:-translate-y-0.5",
   },
-  forest: {
+  umber: {
     light:
-      "bg-forest-700 text-champagne-100 hover:bg-forest-600 hover:-translate-y-0.5 hover:shadow-[0_10px_28px_-10px_rgba(20,45,35,0.8)]",
-    dark: "bg-forest-600 text-champagne-100 hover:bg-forest-500 hover:-translate-y-0.5",
+      "bg-umber-700 text-champagne-100 hover:bg-umber-600 hover:-translate-y-0.5 hover:shadow-[0_10px_28px_-10px_rgba(45,35,24,0.8)]",
+    dark: "bg-umber-600 text-champagne-100 hover:bg-umber-500 hover:-translate-y-0.5",
   },
   outline: {
     light:
-      "border border-champagne-500/60 text-forest-700 hover:border-champagne-500 hover:bg-champagne-500/10 hover:-translate-y-0.5",
+      "border border-champagne-500/60 text-umber-700 hover:border-champagne-500 hover:bg-champagne-500/10 hover:-translate-y-0.5",
     dark: "border border-champagne-300/50 text-champagne-100 hover:border-champagne-300 hover:bg-champagne-500/15 hover:-translate-y-0.5",
   },
 };

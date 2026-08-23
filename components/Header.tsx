@@ -76,7 +76,7 @@ export default function Header() {
         >
           <span
             className={`font-display text-2xl tracking-[0.3em] transition-colors duration-500 sm:text-[1.7rem] ${
-              transparent ? "text-ivory" : "text-forest-700"
+              transparent ? "text-ivory" : "text-umber-700"
             }`}
           >
             {site.name}
@@ -106,7 +106,7 @@ export default function Header() {
                     className={`group flex flex-col items-center gap-1 transition-colors duration-300 ${
                       transparent
                         ? "text-ivory/90 hover:text-champagne-200"
-                        : "text-forest-700 hover:text-champagne-600"
+                        : "text-umber-700 hover:text-champagne-600"
                     }`}
                   >
                     <span className="text-[0.82rem] tracking-[0.14em]">
@@ -139,12 +139,12 @@ export default function Header() {
                 ? "translate-y-[7px] rotate-45 bg-champagne-500"
                 : transparent
                   ? "bg-ivory"
-                  : "bg-forest-700"
+                  : "bg-umber-700"
             }`}
           />
           <span
             className={`block h-px w-6 transition-all duration-300 ${
-              open ? "opacity-0" : transparent ? "bg-ivory" : "bg-forest-700"
+              open ? "opacity-0" : transparent ? "bg-ivory" : "bg-umber-700"
             }`}
           />
           <span
@@ -153,7 +153,7 @@ export default function Header() {
                 ? "-translate-y-[7px] -rotate-45 bg-champagne-500"
                 : transparent
                   ? "bg-ivory"
-                  : "bg-forest-700"
+                  : "bg-umber-700"
             }`}
           />
         </button>
@@ -172,7 +172,7 @@ export default function Header() {
       <div
         id="mobile-menu"
         hidden={!open}
-        className="fixed inset-0 z-40 bg-forest-800 lg:hidden"
+        className="fixed inset-0 z-40 bg-umber-800 lg:hidden"
       >
         <div className="flex h-full flex-col justify-center px-8 pb-16">
           <nav aria-label="メインメニュー（モバイル）">
@@ -217,7 +217,7 @@ export default function Header() {
               href={site.links.line}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full bg-champagne-500 px-6 py-3.5 text-center text-[0.85rem] tracking-[0.16em] text-forest-900"
+              className="rounded-full bg-champagne-500 px-6 py-3.5 text-center text-[0.85rem] tracking-[0.16em] text-umber-900"
             >
               公式LINEでご予約
             </a>

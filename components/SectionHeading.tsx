@@ -30,7 +30,7 @@ export default function SectionHeading({
       {ja && (
         <h2
           className={`text-[1.35rem] tracking-[0.16em] sm:text-[1.6rem] ${
-            tone === "dark" ? "text-ivory" : "text-forest-800"
+            tone === "dark" ? "text-ivory" : "text-umber-800"
           }`}
         >
           {ja}

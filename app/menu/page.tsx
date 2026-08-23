@@ -44,7 +44,7 @@ export default function MenuPage() {
                   href={`#${item.id}`}
                   className="group flex flex-col items-center gap-1.5 text-center"
                 >
-                  <span className="text-[0.85rem] tracking-[0.12em] text-forest-700 transition-colors duration-300 group-hover:text-champagne-600">
+                  <span className="text-[0.85rem] tracking-[0.12em] text-umber-700 transition-colors duration-300 group-hover:text-champagne-600">
                     {item.name}
                   </span>
                   <span className="block h-px w-0 bg-champagne-500 transition-all duration-300 group-hover:w-full" />
@@ -102,7 +102,7 @@ export default function MenuPage() {
                       </p>
                       <h2
                         id={`${item.id}-title`}
-                        className="mt-4 text-[1.45rem] tracking-[0.14em] text-forest-800 sm:text-[1.8rem]"
+                        className="mt-4 text-[1.45rem] tracking-[0.14em] text-umber-800 sm:text-[1.8rem]"
                       >
                         {item.name}
                       </h2>
@@ -113,7 +113,7 @@ export default function MenuPage() {
                         {item.description.map((p) => (
                           <p
                             key={p.slice(0, 12)}
-                            className="text-[0.88rem] leading-[2.3] text-forest-700/90 sm:text-[0.92rem]"
+                            className="text-[0.88rem] leading-[2.3] text-umber-700/90 sm:text-[0.92rem]"
                           >
                             {p}
                           </p>
@@ -122,14 +122,14 @@ export default function MenuPage() {
 
                       {/* こんな方におすすめ */}
                       <div className="mt-10 border border-champagne-400/35 bg-champagne-50/50 px-6 py-7 sm:px-8">
-                        <h3 className="text-[0.92rem] tracking-[0.14em] text-forest-800">
+                        <h3 className="text-[0.92rem] tracking-[0.14em] text-umber-800">
                           こんな方におすすめ
                         </h3>
                         <ul className="mt-5 flex flex-col gap-3">
                           {item.recommendedFor.map((r) => (
                             <li
                               key={r}
-                              className="flex items-start gap-3 text-[0.85rem] leading-[1.95] text-forest-700/85"
+                              className="flex items-start gap-3 text-[0.85rem] leading-[1.95] text-umber-700/85"
                             >
                               <span
                                 aria-hidden="true"
@@ -143,7 +143,7 @@ export default function MenuPage() {
 
                       {/* 施術の特徴 */}
                       <div className="mt-10">
-                        <h3 className="text-[0.92rem] tracking-[0.14em] text-forest-800">
+                        <h3 className="text-[0.92rem] tracking-[0.14em] text-umber-800">
                           施術の特徴
                         </h3>
                         <dl className="mt-6 flex flex-col divide-y divide-champagne-400/25 border-t border-champagne-400/25">
@@ -156,7 +156,7 @@ export default function MenuPage() {
                                 />
                                 {f.title}
                               </dt>
-                              <dd className="mt-2.5 pl-[1.1rem] text-[0.84rem] leading-[2.1] text-forest-700/80">
+                              <dd className="mt-2.5 pl-[1.1rem] text-[0.84rem] leading-[2.1] text-umber-700/80">
                                 {f.body}
                               </dd>
                             </div>
@@ -184,7 +184,7 @@ export default function MenuPage() {
           ページ下部の導線
           ============================================================ */}
       <PageActions note="コースの時間と料金は、料金表ページでご確認いただけます。">
-        <ButtonLink href="/price" variant="forest">
+        <ButtonLink href="/price" variant="umber">
           料金表を見る
         </ButtonLink>
         <ButtonLink href="/contact" variant="gold">

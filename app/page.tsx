@@ -40,14 +40,14 @@ export default function HomePage() {
           <Photo
             src=""
             alt="Amulea のサロン空間"
-            tone="forest"
+            tone="umber"
             className="h-full w-full"
             sizes="100vw"
             priority
           />
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(13,31,24,0.62),rgba(13,31,24,0.45)_40%,rgba(13,31,24,0.82))]"
+            className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(30,23,16,0.62),rgba(30,23,16,0.45)_40%,rgba(30,23,16,0.82))]"
           />
         </div>
 
@@ -137,7 +137,7 @@ export default function HomePage() {
                 {site.about.paragraphs.map((p) => (
                   <p
                     key={p.slice(0, 12)}
-                    className="text-[0.88rem] leading-[2.3] text-forest-700/90 sm:text-[0.95rem]"
+                    className="text-[0.88rem] leading-[2.3] text-umber-700/90 sm:text-[0.95rem]"
                   >
                     {p}
                   </p>
@@ -151,7 +151,7 @@ export default function HomePage() {
       {/* ============================================================
           セラピストへの導線
           ============================================================ */}
-      <section className="relative overflow-hidden bg-forest-800 px-5 py-24 sm:px-8 sm:py-32">
+      <section className="relative overflow-hidden bg-umber-800 px-5 py-24 sm:px-8 sm:py-32">
         <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[0.85fr_1fr] lg:gap-20">
           <Reveal>
             <Photo
@@ -198,7 +198,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <SectionHeading en="Menu" ja="施術メニュー" />
-            <p className="mx-auto mt-8 max-w-xl text-center text-[0.88rem] leading-[2.2] text-forest-700/80">
+            <p className="mx-auto mt-8 max-w-xl text-center text-[0.88rem] leading-[2.2] text-umber-700/80">
               その日の心と身体の状態にあわせて、
               <br className="hidden sm:block" />
               施術の内容と時間を組み立てていきます。
@@ -220,10 +220,10 @@ export default function HomePage() {
                     <p className="mt-5 font-display text-[0.6rem] tracking-[0.3em] text-champagne-600 uppercase">
                       {item.nameEn}
                     </p>
-                    <h3 className="mt-2 text-[1.02rem] tracking-[0.1em] text-forest-800 transition-colors duration-300 group-hover:text-champagne-600">
+                    <h3 className="mt-2 text-[1.02rem] tracking-[0.1em] text-umber-800 transition-colors duration-300 group-hover:text-champagne-600">
                       {item.name}
                     </h3>
-                    <p className="mt-3 text-[0.82rem] leading-[1.95] text-forest-700/70">
+                    <p className="mt-3 text-[0.82rem] leading-[1.95] text-umber-700/70">
                       {item.lead}
                     </p>
                   </Link>
@@ -234,7 +234,7 @@ export default function HomePage() {
 
           <Reveal>
             <div className="mt-16 flex flex-col items-center justify-center gap-3.5 sm:flex-row">
-              <ButtonLink href="/menu" variant="forest">
+              <ButtonLink href="/menu" variant="umber">
                 メニューを詳しく見る
               </ButtonLink>
               <ButtonLink href="/price" variant="outline">
@@ -262,10 +262,10 @@ export default function HomePage() {
                   className="flex flex-col gap-2 py-6 sm:flex-row sm:items-baseline sm:justify-between sm:gap-8"
                 >
                   <div>
-                    <p className="text-[0.95rem] tracking-[0.1em] text-forest-800">
+                    <p className="text-[0.95rem] tracking-[0.1em] text-umber-800">
                       {group}
                     </p>
-                    <p className="mt-1 text-[0.8rem] text-forest-700/65">
+                    <p className="mt-1 text-[0.8rem] text-umber-700/65">
                       {course.name}
                     </p>
                   </div>
@@ -277,14 +277,14 @@ export default function HomePage() {
                 </li>
               ))}
             </ul>
-            <p className="mt-6 text-center text-[0.78rem] text-forest-700/60">
+            <p className="mt-6 text-center text-[0.78rem] text-umber-700/60">
               表示は各メニューの代表的なコースです。全コースは料金表でご確認いただけます。
             </p>
           </Reveal>
 
           <Reveal>
             <div className="mt-12 text-center">
-              <ButtonLink href="/price" variant="forest">
+              <ButtonLink href="/price" variant="umber">
                 料金表を見る
                 <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </ButtonLink>
@@ -312,7 +312,7 @@ export default function HomePage() {
                     Business Hours
                   </p>
                 </div>
-                <h3 className="mt-5 text-[1.1rem] tracking-[0.14em] text-forest-800">
+                <h3 className="mt-5 text-[1.1rem] tracking-[0.14em] text-umber-800">
                   営業時間
                 </h3>
 
@@ -322,10 +322,10 @@ export default function HomePage() {
                       key={row.days}
                       className="flex flex-col gap-1 border-b border-champagne-400/20 pb-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
                     >
-                      <dt className="text-[0.86rem] tracking-[0.1em] text-forest-700">
+                      <dt className="text-[0.86rem] tracking-[0.1em] text-umber-700">
                         {row.days}
                       </dt>
-                      <dd className="text-[0.86rem] text-forest-700/70">
+                      <dd className="text-[0.86rem] text-umber-700/70">
                         {row.time}
                       </dd>
                     </div>
@@ -336,7 +336,7 @@ export default function HomePage() {
                   {site.hours.notes.map((note) => (
                     <li
                       key={note}
-                      className="text-[0.78rem] leading-[1.9] text-forest-700/60"
+                      className="text-[0.78rem] leading-[1.9] text-umber-700/60"
                     >
                       ※ {note}
                     </li>
@@ -354,17 +354,17 @@ export default function HomePage() {
                   rel="noopener noreferrer"
                   className="group flex flex-1 items-center gap-6 border border-champagne-400/30 bg-ivory px-7 py-8 transition-all duration-300 hover:border-champagne-500/60 hover:bg-champagne-50 sm:px-10"
                 >
-                  <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-forest-700 text-champagne-200 transition-colors duration-300 group-hover:bg-forest-600">
+                  <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-umber-700 text-champagne-200 transition-colors duration-300 group-hover:bg-umber-600">
                     <LineIcon className="h-7 w-7" />
                   </span>
                   <span className="flex-1">
                     <span className="font-display block text-[0.62rem] tracking-[0.3em] text-champagne-600 uppercase">
                       Official LINE
                     </span>
-                    <span className="mt-1.5 block text-[1rem] tracking-[0.1em] text-forest-800">
+                    <span className="mt-1.5 block text-[1rem] tracking-[0.1em] text-umber-800">
                       公式LINE
                     </span>
-                    <span className="mt-1.5 block text-[0.8rem] text-forest-700/65">
+                    <span className="mt-1.5 block text-[0.8rem] text-umber-700/65">
                       ご予約・ご相談はこちらから
                       {site.links.lineId && `　${site.links.lineId}`}
                     </span>
@@ -378,17 +378,17 @@ export default function HomePage() {
                   rel="noopener noreferrer"
                   className="group flex flex-1 items-center gap-6 border border-champagne-400/30 bg-ivory px-7 py-8 transition-all duration-300 hover:border-champagne-500/60 hover:bg-champagne-50 sm:px-10"
                 >
-                  <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-forest-700 text-champagne-200 transition-colors duration-300 group-hover:bg-forest-600">
+                  <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-umber-700 text-champagne-200 transition-colors duration-300 group-hover:bg-umber-600">
                     <InstagramIcon className="h-6 w-6" />
                   </span>
                   <span className="flex-1">
                     <span className="font-display block text-[0.62rem] tracking-[0.3em] text-champagne-600 uppercase">
                       Instagram
                     </span>
-                    <span className="mt-1.5 block text-[1rem] tracking-[0.1em] text-forest-800">
+                    <span className="mt-1.5 block text-[1rem] tracking-[0.1em] text-umber-800">
                       サロンの日々
                     </span>
-                    <span className="mt-1.5 block text-[0.8rem] text-forest-700/65">
+                    <span className="mt-1.5 block text-[0.8rem] text-umber-700/65">
                       施術の様子やお知らせを発信中　{site.links.instagramId}
                     </span>
                   </span>
@@ -408,13 +408,13 @@ export default function HomePage() {
           <Photo
             src=""
             alt="Amulea のサロン空間"
-            tone="forest"
+            tone="umber"
             className="h-full w-full"
             sizes="100vw"
           />
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-forest-900/75"
+            className="absolute inset-0 bg-umber-900/75"
           />
         </div>
 
@@ -424,7 +424,7 @@ export default function HomePage() {
             <p className="mt-8 text-[0.9rem] leading-[2.2] text-ivory/80">
               Amulea は完全予約制です。
               <br />
-              公式LINE、または Instagram より承っております。
+              公式LINEより承っております。
               <br className="hidden sm:block" />
               はじめての方も、どうぞお気軽にご連絡ください。
             </p>

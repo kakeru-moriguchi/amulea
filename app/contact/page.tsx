@@ -41,8 +41,8 @@ export default function ContactPage() {
       <PageHeader
         en="Reservation & Contact"
         ja="ご予約・お問い合わせ"
-        lead="Amulea は完全予約制です。ご予約・ご相談は、公式LINE または Instagram より承っております。"
-        tone="forest"
+        lead="Amulea は完全予約制です。ご予約・ご相談は、公式LINE より承っております。"
+        tone="umber"
       />
 
       {/* ============================================================
@@ -52,7 +52,7 @@ export default function ContactPage() {
         <div className="mx-auto max-w-5xl">
           <Reveal>
             <SectionHeading en="Reservation" ja="ご予約" />
-            <p className="mx-auto mt-8 max-w-xl text-center text-[0.88rem] leading-[2.2] text-forest-700/80">
+            <p className="mx-auto mt-8 max-w-xl text-center text-[0.88rem] leading-[2.2] text-umber-700/80">
               ご希望のメニューと日時をお知らせください。
               <br className="hidden sm:block" />
               お決まりでない場合も、ご相談いただきながらお選びいただけます。
@@ -73,7 +73,7 @@ export default function ContactPage() {
                   <span
                     className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-full ${
                       method.primary
-                        ? "bg-forest-700 text-champagne-200"
+                        ? "bg-umber-700 text-champagne-200"
                         : "border border-champagne-500/40 text-champagne-600"
                     }`}
                   >
@@ -100,10 +100,10 @@ export default function ContactPage() {
                         )}
                       </div>
                     )}
-                    <h3 className="text-[1.1rem] tracking-[0.14em] text-forest-800">
+                    <h3 className="text-[1.1rem] tracking-[0.14em] text-umber-800">
                       {method.title}
                     </h3>
-                    <p className="mt-3 max-w-xl text-[0.85rem] leading-[2.1] text-forest-700/80">
+                    <p className="mt-3 max-w-xl text-[0.85rem] leading-[2.1] text-umber-700/80">
                       {method.description}
                     </p>
                   </div>
@@ -136,10 +136,10 @@ export default function ContactPage() {
               <dl className="mt-6 grid gap-x-10 gap-y-4 sm:grid-cols-3">
                 {site.hours.schedule.map((row) => (
                   <div key={row.days}>
-                    <dt className="text-[0.83rem] tracking-[0.1em] text-forest-700">
+                    <dt className="text-[0.83rem] tracking-[0.1em] text-umber-700">
                       {row.days}
                     </dt>
-                    <dd className="mt-1 text-[0.83rem] text-forest-700/65">
+                    <dd className="mt-1 text-[0.83rem] text-umber-700/65">
                       {row.time}
                     </dd>
                   </div>
@@ -149,7 +149,7 @@ export default function ContactPage() {
                 {site.hours.notes.map((note) => (
                   <li
                     key={note}
-                    className="text-[0.77rem] leading-[1.9] text-forest-700/60"
+                    className="text-[0.77rem] leading-[1.9] text-umber-700/60"
                   >
                     ※ {note}
                   </li>

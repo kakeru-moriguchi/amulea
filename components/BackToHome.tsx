@@ -50,7 +50,7 @@ export default function BackToHome({
         className={`group inline-flex items-center gap-2 text-[0.78rem] tracking-[0.2em] transition-colors duration-300 ${
           dark
             ? "text-champagne-200/85 hover:text-champagne-300"
-            : "text-forest-600/80 hover:text-champagne-600"
+            : "text-umber-600/80 hover:text-champagne-600"
         } ${className}`}
       >
         <ArrowLeft className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-x-1" />
@@ -65,7 +65,7 @@ export default function BackToHome({
       className={`group inline-flex items-center justify-center gap-2.5 rounded-full border px-8 py-3.5 text-[0.9rem] tracking-[0.16em] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-champagne-500/10 ${
         dark
           ? "border-champagne-300/50 text-champagne-100 hover:border-champagne-300"
-          : "border-champagne-500/60 text-forest-700 hover:border-champagne-500"
+          : "border-champagne-500/60 text-umber-700 hover:border-champagne-500"
       } ${className}`}
     >
       <ArrowLeft className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-1" />

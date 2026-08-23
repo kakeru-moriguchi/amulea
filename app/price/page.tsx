@@ -32,7 +32,7 @@ export default function PricePage() {
         en="Price"
         ja="料金表"
         lead="すべて税込価格です。コースの組み合わせやご延長のご相談も承っております。"
-        tone="forest"
+        tone="umber"
       />
 
       {/* ============================================================
@@ -50,12 +50,12 @@ export default function PricePage() {
                   </p>
                   <h2
                     id={`${group.id}-heading`}
-                    className="mt-4 text-[1.25rem] tracking-[0.16em] text-forest-800 sm:text-[1.45rem]"
+                    className="mt-4 text-[1.25rem] tracking-[0.16em] text-umber-800 sm:text-[1.45rem]"
                   >
                     {group.titleJa}
                   </h2>
                   {group.note && (
-                    <p className="mx-auto mt-4 max-w-md text-[0.83rem] leading-[2] text-forest-700/70">
+                    <p className="mx-auto mt-4 max-w-md text-[0.83rem] leading-[2] text-umber-700/70">
                       {group.note}
                     </p>
                   )}
@@ -80,7 +80,7 @@ export default function PricePage() {
       {secretMenu.visible && (
         <section
           aria-labelledby="secret-heading"
-          className="relative overflow-hidden bg-forest-800 px-5 py-20 sm:px-8 sm:py-28"
+          className="relative overflow-hidden bg-umber-800 px-5 py-20 sm:px-8 sm:py-28"
         >
           {/* 背景の装飾 */}
           <div
@@ -137,14 +137,14 @@ export default function PricePage() {
             <h2 className="font-display text-[0.65rem] tracking-[0.35em] text-champagne-600 uppercase">
               Notes
             </h2>
-            <p className="mt-4 text-[1rem] tracking-[0.14em] text-forest-800">
+            <p className="mt-4 text-[1rem] tracking-[0.14em] text-umber-800">
               ご利用にあたって
             </p>
             <ul className="mt-7 flex flex-col gap-3.5">
               {priceNotes.map((note) => (
                 <li
                   key={note}
-                  className="flex items-start gap-3 text-[0.84rem] leading-[2] text-forest-700/80"
+                  className="flex items-start gap-3 text-[0.84rem] leading-[2] text-umber-700/80"
                 >
                   <span
                     aria-hidden="true"
@@ -162,7 +162,7 @@ export default function PricePage() {
           ページ下部の導線
           ============================================================ */}
       <PageActions note="施術の内容は、メニューページで写真とあわせてご覧いただけます。">
-        <ButtonLink href="/menu" variant="forest">
+        <ButtonLink href="/menu" variant="umber">
           メニューを見る
         </ButtonLink>
         <ButtonLink href="/contact" variant="gold">
@@ -191,7 +191,7 @@ function CourseRow({
         <div className="flex flex-wrap items-baseline gap-x-3 gap-y-2">
           <h3
             className={`text-[1rem] tracking-[0.12em] ${
-              dark ? "text-ivory" : "text-forest-800"
+              dark ? "text-ivory" : "text-umber-800"
             }`}
           >
             {course.name}
@@ -213,7 +213,7 @@ function CourseRow({
         </div>
         <p
           className={`mt-2.5 max-w-lg text-[0.82rem] leading-[2] ${
-            dark ? "text-ivory/60" : "text-forest-700/70"
+            dark ? "text-ivory/60" : "text-umber-700/70"
           }`}
         >
           {course.description}
@@ -224,7 +224,7 @@ function CourseRow({
       <p className="flex shrink-0 items-baseline gap-3 sm:justify-end">
         <span
           className={`text-[0.82rem] tracking-[0.1em] ${
-            dark ? "text-champagne-300/80" : "text-forest-700/70"
+            dark ? "text-champagne-300/80" : "text-umber-700/70"
           }`}
         >
           {course.duration}
