@@ -20,13 +20,20 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
 
   const isHome = pathname === "/";
+
   /**
-   * ヘッダーを透過させる条件。
-   *  - トップページの最上部
+   * ヘッダーの背景を透過させる条件。
+   *  - トップページの最上部（メインビジュアルに重ねるため）
    *  - スマートフォンのメニューを開いているとき
-   *    （濃い緑のメニューと一体に見えるようにするため）
    */
   const transparent = open || (isHome && !scrolled);
+
+  /**
+   * 文字を白系にする条件。
+   * メニューを開いているときだけです。トップページのメインビジュアルは
+   * 明るい写真のため、透過していても文字は濃い茶色のままにします。
+   */
+  const lightText = open;
 
   /* スクロール量に応じて背景を切り替える */
   useEffect(() => {
@@ -76,14 +83,14 @@ export default function Header() {
         >
           <span
             className={`font-display text-2xl tracking-[0.3em] transition-colors duration-500 sm:text-[1.7rem] ${
-              transparent ? "text-ivory" : "text-umber-700"
+              lightText ? "text-ivory" : "text-umber-700"
             }`}
           >
             {site.name}
           </span>
           <span
             className={`mt-1.5 text-[0.55rem] tracking-[0.35em] transition-colors duration-500 ${
-              transparent ? "text-champagne-200/80" : "text-champagne-600/80"
+              lightText ? "text-champagne-200/80" : "text-champagne-700"
             }`}
           >
             {site.tagline.toUpperCase()}
@@ -104,7 +111,7 @@ export default function Header() {
                     href={item.href}
                     aria-current={active ? "page" : undefined}
                     className={`group flex flex-col items-center gap-1 transition-colors duration-300 ${
-                      transparent
+                      lightText
                         ? "text-ivory/90 hover:text-champagne-200"
                         : "text-umber-700 hover:text-champagne-600"
                     }`}
@@ -137,21 +144,21 @@ export default function Header() {
             className={`block h-px w-6 transition-all duration-300 ${
               open
                 ? "translate-y-[7px] rotate-45 bg-champagne-500"
-                : transparent
+                : lightText
                   ? "bg-ivory"
                   : "bg-umber-700"
             }`}
           />
           <span
             className={`block h-px w-6 transition-all duration-300 ${
-              open ? "opacity-0" : transparent ? "bg-ivory" : "bg-umber-700"
+              open ? "opacity-0" : lightText ? "bg-ivory" : "bg-umber-700"
             }`}
           />
           <span
             className={`block h-px w-6 transition-all duration-300 ${
               open
                 ? "-translate-y-[7px] -rotate-45 bg-champagne-500"
-                : transparent
+                : lightText
                   ? "bg-ivory"
                   : "bg-umber-700"
             }`}

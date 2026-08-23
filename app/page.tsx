@@ -7,7 +7,7 @@ import SectionHeading from "@/components/SectionHeading";
 import { ArrowRightIcon, ClockIcon, InstagramIcon, LineIcon } from "@/components/icons";
 import { menuGroups } from "@/data/menu";
 import { priceGroups, formatPrice } from "@/data/price";
-import { site } from "@/data/site";
+import { mainVisual, site } from "@/data/site";
 import { therapist } from "@/data/therapist";
 
 /**
@@ -31,73 +31,56 @@ export default function HomePage() {
       {/* ============================================================
           メインビジュアル
           ============================================================ */}
-      <section className="relative isolate flex min-h-[100svh] items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 -z-10">
-          {/*
-            メインビジュアルの写真を差し替えるときは、画像を
-            public/images/ に置いて下の src に "/images/xxx.jpg" を指定します。
-          */}
+      <section className="relative flex min-h-[100svh] flex-col">
+        {/*
+          写真の帯。
+          サロン名とロゴは写真の中に含まれているため、
+          写真の上に文字を重ねず、そのまま見せています。
+          差し替えるときは data/site.ts の mainVisual を変更してください。
+        */}
+        <div className="relative h-[46svh] min-h-[300px] w-full sm:h-[54svh] lg:h-[58svh]">
           <Photo
-            src=""
-            alt="Amulea のサロン空間"
-            tone="umber"
+            src={mainVisual.image}
+            alt={`${site.name}（${site.nameJa}）`}
+            tone="ivory"
             className="h-full w-full"
             sizes="100vw"
+            objectPosition={mainVisual.objectPosition}
             priority
           />
+          {/* 下端をアイボリーに溶け込ませ、下の文章となじませます */}
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(30,23,16,0.62),rgba(30,23,16,0.45)_40%,rgba(30,23,16,0.82))]"
+            className="absolute inset-x-0 bottom-0 h-28 bg-[linear-gradient(to_top,var(--color-ivory),transparent)]"
           />
         </div>
 
-        <div className="mx-auto max-w-3xl px-6 pt-24 pb-28 text-center sm:pt-28">
-          {/* ロゴ・サロン名 */}
-          <p className="font-display text-[2.9rem] leading-none tracking-[0.28em] text-ivory sm:text-[4.2rem]">
-            {site.name}
-          </p>
-          <p className="mt-4 text-[0.62rem] tracking-[0.42em] text-champagne-300 uppercase sm:text-[0.7rem]">
-            {site.tagline}
-          </p>
+        {/* キャッチコピー */}
+        <div className="flex flex-1 items-center justify-center px-6 pt-4 pb-16 sm:pb-20">
+          <div className="mx-auto max-w-3xl text-center">
+            <div className="gold-rule mx-auto mb-9 w-20" aria-hidden="true" />
 
-          <div className="gold-rule mx-auto my-10 w-20" aria-hidden="true" />
+            <h1 className="text-[1.5rem] leading-[1.9] tracking-[0.18em] text-umber-800 sm:text-[2.1rem]">
+              {site.catchCopy.map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
+            </h1>
 
-          {/* キャッチコピー */}
-          <h1 className="text-[1.5rem] leading-[1.9] tracking-[0.18em] text-ivory sm:text-[2.1rem]">
-            {site.catchCopy.map((line) => (
-              <span key={line} className="block">
-                {line}
-              </span>
-            ))}
-          </h1>
+            <p className="mt-7 text-[0.85rem] leading-[2.2] whitespace-pre-line text-umber-700/85 sm:text-[0.95rem]">
+              {site.catchLead}
+            </p>
 
-          <p className="mt-8 text-[0.85rem] leading-[2.2] whitespace-pre-line text-ivory/75 sm:text-[0.95rem]">
-            {site.catchLead}
-          </p>
-
-          <div className="mt-12 flex flex-col items-center justify-center gap-3.5 sm:flex-row">
-            <ButtonLink href="/contact" variant="gold">
-              ご予約はこちら
-            </ButtonLink>
-            <ButtonLink
-              href="/menu"
-              variant="outline"
-              tone="dark"
-            >
-              メニューを見る
-            </ButtonLink>
+            <div className="mt-10 flex flex-col items-center justify-center gap-3.5 sm:flex-row">
+              <ButtonLink href="/contact" variant="gold">
+                ご予約はこちら
+              </ButtonLink>
+              <ButtonLink href="/menu" variant="outline">
+                メニューを見る
+              </ButtonLink>
+            </div>
           </div>
-        </div>
-
-        {/* スクロールを促す表示 */}
-        <div
-          aria-hidden="true"
-          className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-3"
-        >
-          <span className="font-display text-[0.55rem] tracking-[0.35em] text-champagne-200/70 uppercase">
-            Scroll
-          </span>
-          <span className="block h-12 w-px bg-[linear-gradient(to_bottom,var(--color-champagne-400),transparent)]" />
         </div>
       </section>
 
@@ -116,7 +99,7 @@ export default function HomePage() {
           <div className="mt-16 grid items-start gap-12 lg:grid-cols-[0.85fr_1fr] lg:gap-20">
             <Reveal>
               {/* 文章が長いため、読み進めても写真が見えるようにしています */}
-              <div className="relative lg:sticky lg:top-28">
+              <div className="lg:sticky lg:top-28">
                 {/* サロンの世界観が伝わる写真 */}
                 <Photo
                   src=""
@@ -124,11 +107,6 @@ export default function HomePage() {
                   tone="ivory"
                   className="aspect-[4/5] rounded-[2px]"
                   sizes="(max-width: 1024px) 100vw, 45vw"
-                />
-                {/* 装飾の金枠 */}
-                <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute -right-3 -bottom-3 h-full w-full border border-champagne-400/40 sm:-right-5 sm:-bottom-5"
                 />
               </div>
             </Reveal>
