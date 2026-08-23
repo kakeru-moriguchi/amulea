@@ -113,16 +113,17 @@ export default function HomePage() {
             />
           </Reveal>
 
-          <div className="mt-16 grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+          <div className="mt-16 grid items-start gap-12 lg:grid-cols-[0.85fr_1fr] lg:gap-20">
             <Reveal>
-              <div className="relative">
+              {/* 文章が長いため、読み進めても写真が見えるようにしています */}
+              <div className="relative lg:sticky lg:top-28">
                 {/* サロンの世界観が伝わる写真 */}
                 <Photo
                   src=""
                   alt="Amulea の施術室"
                   tone="ivory"
                   className="aspect-[4/5] rounded-[2px]"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  sizes="(max-width: 1024px) 100vw, 45vw"
                 />
                 {/* 装飾の金枠 */}
                 <div
@@ -135,12 +136,11 @@ export default function HomePage() {
             <Reveal delay={0.15}>
               <div className="space-y-6">
                 {site.about.paragraphs.map((p) => (
-                  <p
-                    key={p.slice(0, 12)}
+                  <RichText
+                    key={p.slice(0, 14)}
+                    text={p}
                     className="text-[0.88rem] leading-[2.3] text-umber-700/90 sm:text-[0.95rem]"
-                  >
-                    {p}
-                  </p>
+                  />
                 ))}
               </div>
             </Reveal>
