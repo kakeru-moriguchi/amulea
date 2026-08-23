@@ -96,7 +96,7 @@ export default function ContactPage() {
                     </p>
                   </div>
 
-                  <div className="md:w-56 md:shrink-0">
+                  <div className="md:w-64 md:shrink-0">
                     <ButtonLink
                       href={method.href}
                       external={method.external}

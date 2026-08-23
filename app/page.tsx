@@ -365,7 +365,8 @@ export default function HomePage() {
                       公式LINE
                     </span>
                     <span className="mt-1.5 block text-[0.8rem] text-forest-700/65">
-                      ご予約・ご相談はこちらから　{site.links.lineId}
+                      ご予約・ご相談はこちらから
+                      {site.links.lineId && `　${site.links.lineId}`}
                     </span>
                   </span>
                   <ArrowRightIcon className="h-5 w-5 shrink-0 text-champagne-600 transition-transform duration-300 group-hover:translate-x-1" />

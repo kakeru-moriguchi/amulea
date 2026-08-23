@@ -32,8 +32,9 @@ type Props = {
   className?: string;
 };
 
+/* whitespace-nowrap … ボタンの文字が途中で改行されないようにしています */
 const base =
-  "group inline-flex items-center justify-center gap-2.5 rounded-full px-8 py-3.5 text-center text-[0.9rem] tracking-[0.16em] transition-all duration-300 ease-out";
+  "group inline-flex items-center justify-center gap-2.5 rounded-full px-8 py-3.5 text-center text-[0.9rem] tracking-[0.16em] whitespace-nowrap transition-all duration-300 ease-out";
 
 /** variant と tone の組み合わせごとの見た目 */
 const styles: Record<Variant, Record<Tone, string>> = {

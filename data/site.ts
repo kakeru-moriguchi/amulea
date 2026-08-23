@@ -34,13 +34,13 @@ export const site = {
   hours: {
     /** 曜日ごとの営業時間。休業日は time を「定休日」などにしてください */
     schedule: [
-      { days: "月 - 金", time: "11:00 - 21:00" },
-      { days: "土・日・祝", time: "10:00 - 20:00" },
+      { days: "月 - 金", time: "13:00 - 23:00" },
+      { days: "土・日・祝", time: "12:00 - 23:00" },
       { days: "不定休", time: "休業日は公式LINEにてお知らせします" },
     ],
     /** 補足事項 */
     notes: [
-      "最終受付は終了時刻の90分前となります。",
+      "最終予約受付は20:00となります。",
       "完全予約制のため、事前のご予約をお願いしております。",
     ],
   },
@@ -59,13 +59,13 @@ export const site = {
    */
   links: {
     /** 公式LINE の友だち追加 URL */
-    line: "https://line.me/R/ti/p/@amulea",
-    /** LINE ID（画面に表示する用） */
-    lineId: "@amulea",
+    line: "https://lin.ee/vvo1LP5",
+    /** LINE ID（画面に表示する用）。空文字 "" のときは表示されません */
+    lineId: "",
     /** Instagram プロフィール URL */
-    instagram: "https://www.instagram.com/amulea_salon/",
+    instagram: "https://www.instagram.com/amulea_163/",
     /** Instagram のアカウント名（画面に表示する用） */
-    instagramId: "@amulea_salon",
+    instagramId: "@amulea_163",
     /** お問い合わせ用メールアドレス */
     email: "info@amulea.jp",
   },
