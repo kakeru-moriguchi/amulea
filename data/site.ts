@@ -93,9 +93,19 @@ export const site = {
  *     "light" … 明るい写真向け（クリーム色を重ね、文字は濃い茶色）
  *     "dark"  … 暗い写真向け（濃い茶色を重ね、文字は白）
  */
-export const pageHeader: { image: string; overlay: "light" | "dark" } = {
-  image: "",
+export const pageHeader: {
+  image: string;
+  overlay: "light" | "dark";
+  objectPosition: string;
+} = {
+  image: "/images/heder.png",
   overlay: "light",
+  /**
+   * 写真のどの部分を見せるか。
+   * 画面が狭いほど写真は左右が切り取られるため、
+   * 見出しの文字と写真の中のロゴが重ならない位置に寄せています。
+   */
+  objectPosition: "object-[22%_50%] sm:object-center",
 };
 
 /**
