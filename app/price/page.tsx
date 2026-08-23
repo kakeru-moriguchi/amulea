@@ -32,7 +32,7 @@ export default function PricePage() {
         en="Price"
         ja="料金表"
         lead="すべて税込価格です。コースの組み合わせやご延長のご相談も承っております。"
-        tone="umber"
+        tone="ivory"
       />
 
       {/* ============================================================

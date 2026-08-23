@@ -42,7 +42,7 @@ export default function ContactPage() {
         en="Reservation & Contact"
         ja="ご予約・お問い合わせ"
         lead="Amulea は完全予約制です。ご予約・ご相談は、公式LINE より承っております。"
-        tone="umber"
+        tone="ivory"
       />
 
       {/* ============================================================

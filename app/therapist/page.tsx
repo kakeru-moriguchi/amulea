@@ -28,7 +28,7 @@ export default function TherapistPage() {
         en="Therapist"
         ja="セラピスト"
         lead="Amulea でお客様をお迎えするセラピストをご紹介します。"
-        tone="champagne"
+        tone="ivory"
       />
 
       {/* ============================================================
