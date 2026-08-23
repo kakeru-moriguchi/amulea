@@ -424,7 +424,7 @@ export default function HomePage() {
             <p className="mt-8 text-[0.9rem] leading-[2.2] text-ivory/80">
               Amulea は完全予約制です。
               <br />
-              公式LINE、またはお問い合わせフォームより承っております。
+              公式LINE、または Instagram より承っております。
               <br className="hidden sm:block" />
               はじめての方も、どうぞお気軽にご連絡ください。
             </p>

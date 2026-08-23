@@ -48,7 +48,7 @@ npm run start   # 本番用サーバー
 | `data/therapist.ts` | セラピストの写真・名前・自己紹介・サロンを始めた想い・お客様へのメッセージ |
 | `data/menu.ts` | 各メニューの写真・メニュー名・施術内容・こんな方におすすめ・施術の特徴 |
 | `data/price.ts` | **すべての料金**（通常メニュー・オプション・Secret Menu）・注意書き |
-| `data/contact.ts` | ご予約方法の案内・お問い合わせフォームの入力項目・送信先 |
+| `data/contact.ts` | ご予約方法（公式LINE・Instagram）の案内 |
 
 各ファイルの先頭に、編集方法のコメントを日本語で記載しています。
 
@@ -89,38 +89,31 @@ export const secretMenu = {
 表示されます（レイアウトは崩れません）。
 詳しくは `public/images/README.md` をご覧ください。
 
-### ご予約用の入力項目を追加する
+### ご予約の窓口を追加・変更する
 
-お問い合わせフォームには「希望メニュー」「希望日」「希望時間」を
-あらかじめ用意してあります。はじめは非表示です。
-`data/contact.ts` の `enabled` を `true` に変えるだけで表示されます。
+ご予約は公式LINE と Instagram で承る構成です。
+窓口を増やしたいときは `data/contact.ts` の `reservationMethods` に
+同じ形のかたまりを追加してください。
 
 ```ts
 {
-  name: "menu",
-  label: "希望メニュー",
-  type: "select",
-  required: false,
-  enabled: false,   // ← true にするとフォームに追加されます
-  ...
+  id: "tel",
+  titleEn: "Phone",
+  title: "お電話",
+  description: "施術中は出られないことがございます。...",
+  actionLabel: "電話をかける",
+  href: "tel:0000000000",
+  external: false,
 },
 ```
 
-### お問い合わせフォームの送信先
+`primary: true` を付けた窓口が、いちばん目立つ配色で表示されます。
 
-`data/contact.ts` の `formConfig.endpoint` が空文字 `""` のあいだは、
-入力内容をメール本文に整形して**メールソフトを起動**します
-（サーバーの用意なしで動作します）。
-
-Formspree や Google フォームなどの送信先 URL を `endpoint` に設定すると、
-そちらへ直接送信されるようになります。
-
-```ts
-export const formConfig = {
-  endpoint: "https://formspree.io/f/xxxxxxxx",  // ← 設定するとフォーム送信に切り替わります
-  ...
-};
-```
+> **お問い合わせフォームについて**
+> 以前は入力フォームを設置していましたが、ご予約・お問い合わせを
+> 公式LINE に集約する方針のため削除しました。
+> 再度必要になった場合は、コミット `32e7b3b` の
+> `components/ContactForm.tsx` と `data/contact.ts` から復元できます。
 
 ---
 

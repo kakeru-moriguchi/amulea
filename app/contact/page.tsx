@@ -1,27 +1,26 @@
 import type { Metadata } from "next";
 import BackToHome from "@/components/BackToHome";
 import ButtonLink from "@/components/ButtonLink";
-import ContactForm from "@/components/ContactForm";
 import PageActions from "@/components/PageActions";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import { ArrowRightIcon, ClockIcon, InstagramIcon, LineIcon } from "@/components/icons";
-import { formConfig, reservationMethods } from "@/data/contact";
+import { reservationMethods } from "@/data/contact";
 import { site } from "@/data/site";
 
 /**
  * ご予約・お問い合わせ（/contact）
  * ------------------------------------------------------------------
- * ページ上部で「ご予約」の方法をご案内し、
- * その下に「お問い合わせ」フォームを設置しています。
- * 内容は data/contact.ts で管理しています。
+ * ご予約・お問い合わせの窓口（公式LINE / Instagram）をご案内し、
+ * 営業時間、そしてページ下部の導線を配置しています。
+ * 掲載内容は data/contact.ts と data/site.ts で管理しています。
  */
 
 export const metadata: Metadata = {
   title: "ご予約・お問い合わせ",
   description:
-    "Amulea のご予約・お問い合わせページ。公式LINE からのご予約と、お問い合わせフォームをご用意しています。",
+    "Amulea のご予約・お問い合わせページ。公式LINE・Instagram からご予約とお問い合わせを承っております。",
 };
 
 /** 予約方法ごとのアイコン */
@@ -37,7 +36,7 @@ export default function ContactPage() {
       <PageHeader
         en="Reservation & Contact"
         ja="ご予約・お問い合わせ"
-        lead="Amulea は完全予約制です。ご予約・ご相談は、公式LINE またはお問い合わせフォームより承っております。"
+        lead="Amulea は完全予約制です。ご予約・ご相談は、公式LINE または Instagram より承っております。"
         tone="forest"
       />
 
@@ -149,30 +148,7 @@ export default function ContactPage() {
       </section>
 
       {/* ============================================================
-          お問い合わせ
-          ============================================================ */}
-      <section
-        id="contact-form"
-        className="scroll-mt-24 bg-ivory-deep/60 px-5 py-20 sm:px-8 sm:py-28"
-      >
-        <div className="mx-auto max-w-3xl">
-          <Reveal>
-            <SectionHeading en="Contact" ja="お問い合わせ" />
-            <p className="mx-auto mt-8 max-w-xl text-center text-[0.85rem] leading-[2.2] text-forest-700/75">
-              {formConfig.lead}
-            </p>
-          </Reveal>
-
-          <Reveal delay={0.1}>
-            <div className="mt-14 border border-champagne-400/30 bg-ivory px-7 py-10 sm:px-12 sm:py-14">
-              <ContactForm />
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ============================================================
-          ページ下部の導線
+          ページ下部の導線（営業時間のすぐ下）
           ============================================================ */}
       <PageActions note="お気軽にご連絡ください。お会いできる日を楽しみにしております。">
         <ButtonLink href={site.links.line} variant="gold" external>
