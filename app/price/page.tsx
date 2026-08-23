@@ -101,12 +101,16 @@ export default function PricePage() {
                 >
                   {secretMenu.titleJa}
                 </h2>
-                <p className="mt-5 text-[0.85rem] tracking-[0.14em] text-champagne-300">
-                  {secretMenu.lead}
-                </p>
-                <p className="mx-auto mt-6 max-w-lg text-[0.85rem] leading-[2.2] text-ivory/70">
-                  {secretMenu.description}
-                </p>
+                {secretMenu.lead && (
+                  <p className="mt-5 text-[0.85rem] tracking-[0.14em] text-champagne-300">
+                    {secretMenu.lead}
+                  </p>
+                )}
+                {secretMenu.description && (
+                  <p className="mx-auto mt-6 max-w-lg text-[0.85rem] leading-[2.2] text-ivory/70">
+                    {secretMenu.description}
+                  </p>
+                )}
               </header>
             </Reveal>
 
@@ -118,12 +122,13 @@ export default function PricePage() {
               </ul>
             </Reveal>
 
-            <Reveal delay={0.15}>
-              <p className="mt-9 text-center text-[0.78rem] leading-[1.9] text-ivory/50">
-                ※ Secret Menu は予約枠に限りがございます。ご希望の際は、
-                お早めに公式LINEよりご相談ください。
-              </p>
-            </Reveal>
+            {secretMenu.note && (
+              <Reveal delay={0.15}>
+                <p className="mt-9 text-center text-[0.78rem] leading-[1.9] text-ivory/50">
+                  ※ {secretMenu.note}
+                </p>
+              </Reveal>
+            )}
           </div>
         </section>
       )}
@@ -220,21 +225,25 @@ function CourseRow({
         </p>
       </div>
 
-      {/* 時間と料金 */}
+      {/* 時間と料金（時間の指定がないコースは料金のみ表示します） */}
       <p className="flex shrink-0 items-baseline gap-3 sm:justify-end">
-        <span
-          className={`text-[0.82rem] tracking-[0.1em] ${
-            dark ? "text-champagne-300/80" : "text-umber-700/70"
-          }`}
-        >
-          {course.duration}
-        </span>
-        <span
-          aria-hidden="true"
-          className={dark ? "text-champagne-400/50" : "text-champagne-400"}
-        >
-          /
-        </span>
+        {course.duration && (
+          <>
+            <span
+              className={`text-[0.82rem] tracking-[0.1em] ${
+                dark ? "text-champagne-300/80" : "text-umber-700/70"
+              }`}
+            >
+              {course.duration}
+            </span>
+            <span
+              aria-hidden="true"
+              className={dark ? "text-champagne-400/50" : "text-champagne-400"}
+            >
+              /
+            </span>
+          </>
+        )}
         <span
           className={`font-display text-[1.2rem] tracking-[0.06em] ${
             dark ? "text-champagne-200" : "text-champagne-700"

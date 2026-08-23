@@ -17,13 +17,12 @@ import { therapist } from "@/data/therapist";
  * Instagram・公式LINE / 営業時間 をまとめたトップページです。
  */
 
-/** トップページに並べる代表コースを、料金表データから取り出します */
-const featuredCourses = priceGroups
-  .filter((g) => g.id !== "option")
-  .map((g) => ({
-    group: g.titleJa,
-    course: g.courses.find((c) => c.badge === "人気") ?? g.courses[0],
-  }));
+/**
+ * トップページに並べるコースを、料金表データから取り出します。
+ * data/price.ts で featured: true を付けたグループが表示されます。
+ */
+const featuredGroup =
+  priceGroups.find((g) => g.featured) ?? priceGroups[0];
 
 export default function HomePage() {
   return (
@@ -256,29 +255,33 @@ export default function HomePage() {
 
           <Reveal delay={0.1}>
             <ul className="mt-14 divide-y divide-champagne-400/25 border-y border-champagne-400/25">
-              {featuredCourses.map(({ group, course }) => (
+              {featuredGroup.courses.map((course) => (
                 <li
-                  key={group}
+                  key={course.name}
                   className="flex flex-col gap-2 py-6 sm:flex-row sm:items-baseline sm:justify-between sm:gap-8"
                 >
                   <div>
                     <p className="text-[0.95rem] tracking-[0.1em] text-umber-800">
-                      {group}
-                    </p>
-                    <p className="mt-1 text-[0.8rem] text-umber-700/65">
                       {course.name}
+                    </p>
+                    <p className="mt-1 text-[0.8rem] leading-[1.9] text-umber-700/65">
+                      {course.description}
                     </p>
                   </div>
                   <p className="shrink-0 font-display text-[1.1rem] tracking-[0.08em] text-champagne-700">
-                    {course.duration}
-                    <span className="mx-2.5 text-champagne-400">/</span>
+                    {course.duration && (
+                      <>
+                        {course.duration}
+                        <span className="mx-2.5 text-champagne-400">/</span>
+                      </>
+                    )}
                     {formatPrice(course.price)}
                   </p>
                 </li>
               ))}
             </ul>
             <p className="mt-6 text-center text-[0.78rem] text-umber-700/60">
-              表示は各メニューの代表的なコースです。全コースは料金表でご確認いただけます。
+              部分コース・オプション・隠れメニューは、料金表でご確認いただけます。
             </p>
           </Reveal>
 
