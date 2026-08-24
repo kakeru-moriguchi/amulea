@@ -1,0 +1,16 @@
+node_modules/
+.next/
+out/
+build/
+.DS_Store
+*.pem
+npm-debug.log*
+
+# 認証情報は絶対にコミットしないでください
+.env
+.env.*
+!.env.example
+
+next-env.d.ts
+.vercel
+*.tsbuildinfo
