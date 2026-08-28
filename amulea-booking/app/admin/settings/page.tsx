@@ -128,7 +128,22 @@ function SettingsForm({ lineEnabled }: { lineEnabled: boolean }) {
   }, [menus]);
 
   if (loading) return <Loading />;
-  if (!settings) return <Notice tone="error">設定を読み込めませんでした。</Notice>;
+
+  /*
+    設定が読めなかった場合。
+    ★ ここでも必ず接続診断を表示します。
+      原因を調べたいのはまさにこの状況だからです。
+  */
+  if (!settings) {
+    return (
+      <div className="flex flex-col gap-6">
+        <Notice tone="error">
+          {"設定を読み込めませんでした。\n下の「接続を確認する」を押すと、どこで止まっているか分かります。"}
+        </Notice>
+        <Diagnostics />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-8 pb-6">

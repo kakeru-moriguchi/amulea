@@ -161,6 +161,14 @@ export default function AdminShell({
                 <li>・LINE通知が未設定です。お客様・管理者への通知は送信されません。</li>
               )}
             </ul>
+
+            {/* うまくつながらないときの入口 */}
+            <Link
+              href="/admin/settings"
+              className="mt-1 self-start text-[0.76rem] text-champagne-700 underline underline-offset-4"
+            >
+              接続を確認する
+            </Link>
           </div>
         </div>
       )}
