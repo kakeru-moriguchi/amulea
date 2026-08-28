@@ -84,6 +84,15 @@ export async function GET(): Promise<Response> {
     const SAMPLE_EMAIL = "amulea-booking@amulea-booking-123456.iam.gserviceaccount.com";
     const isSample = env.google.clientEmail === SAMPLE_EMAIL;
 
+    if (env.google.fromJson) {
+      checks.push({
+        name: "設定方法",
+        ok: true,
+        detail:
+          "サービスアカウントの JSON を丸ごと読み込んでいます（GOOGLE_SERVICE_ACCOUNT_JSON）。メールアドレスと秘密鍵は JSON の中身が使われます。",
+      });
+    }
+
     checks.push({
       name: "サービスアカウントのメールアドレス",
       ok: Boolean(env.google.clientEmail) && !isSample,

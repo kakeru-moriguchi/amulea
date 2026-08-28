@@ -22,7 +22,7 @@ Google カレンダーとスプレッドシートに、予約を自動で書き�
 手順4  鍵ファイル（JSON）をダウンロードする
 手順5  カレンダーを、そのアカウントに共有する
 手順6  スプレッドシートを作り、同じく共有する
-手順7  取得した4つの値を登録する（Vercel の画面）
+手順7  取得した値を Vercel に登録する
 ```
 
 「サービスアカウント」とは、**人ではなくプログラム専用の Google アカウント**
@@ -203,65 +203,82 @@ cp .env.example .env.local
 
 ---
 
-### 登録する4つの値
+### 登録する値
+
+**いちばん簡単な方法（おすすめ）** と、従来の方法があります。
+
+---
+
+## 【おすすめ】JSONを丸ごと貼る方式（3つだけ）
+
+秘密鍵は数千文字あり、「-----BEGIN から -----END まで」を正確に選ぶのは
+とても失敗しやすい作業です。**その工程をなくせます。**
+
+### ① GOOGLE_SERVICE_ACCOUNT_JSON
+
+1. ダウンロードした JSON ファイルをメモ帳で開く
+   （右クリック →「プログラムから開く」→「メモ帳」）
+2. **Ctrl + A**（全選択）→ **Ctrl + C**（コピー）
+3. Vercel の Value 欄に **Ctrl + V** で貼る
+4. Type は **Secret** にする
+
+これだけで、**メールアドレスと秘密鍵の両方**が設定されます。
+`GOOGLE_CLIENT_EMAIL` と `GOOGLE_PRIVATE_KEY` は不要です。
+
+> 💡 すでに `GOOGLE_CLIENT_EMAIL` を登録済みでも構いません。
+> JSON があるときは JSON の中身が優先されます。
+> （メールアドレスと秘密鍵は必ず対になっている必要があるため、
+> 　バラバラに設定されたものより JSON のほうが確実です）
+
+### ② GOOGLE_CALENDAR_ID
+
+```
+amulea.163@gmail.com
+```
+
+### ③ GOOGLE_SPREADSHEET_ID
+
+手順6でメモしたIDです。
+
+```
+1AbCdEfGhIjKlMnOpQrStUvWxYz1234567890
+```
+
+---
+
+## 【従来の方法】1つずつ設定する（4つ）
+
+JSONを丸ごと貼れない場合はこちらでも設定できます。
 
 ### ① GOOGLE_CLIENT_EMAIL
 
 手順4でメモしたメールアドレスです。
 
 ```
-GOOGLE_CLIENT_EMAIL=amulea-booking@amulea-booking-123456.iam.gserviceaccount.com
+amulea-booking@あなたのプロジェクト名.iam.gserviceaccount.com
 ```
+
+> ⚠️ **手順書の記入例をそのまま貼らないでください。**
+> ご自身のサービスアカウントのメールアドレスを使ってください。
+> Google Cloud の「サービス アカウントの詳細」画面の「メール」欄で確認できます。
 
 ### ② GOOGLE_PRIVATE_KEY
 
-ダウンロードしたJSONファイルをテキストエディタで開きます。
-`"private_key":` という行を探してください。
+JSONファイルをメモ帳で開き、`Ctrl + F` で `private_key` を検索します。
 
 ```json
-"private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADAN...（とても長い）...\n-----END PRIVATE KEY-----\n",
+"private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADAN...\n-----END PRIVATE KEY-----\n",
 ```
 
-**`-----BEGIN` から `-----END PRIVATE KEY-----\n` までをコピー**します。
+**`-----BEGIN` から `-----END PRIVATE KEY-----\n` まで**をコピーします。
 
-- **Vercel に貼る場合** … 前後のダブルクォート `"` は**含めません**
-- **`.env.local` に書く場合** … ダブルクォートで囲みます
+> 💡 **`\n` はそのままでOK**（改行の記号です。手で直さないでください）
+> 💡 前後の `"` を含めても、空白が混ざっても動くようにしてあります
+> 💡 **間違えてJSONを丸ごと貼ってしまっても動きます**（自動的に中身を読み取ります）
 
-```
-（Vercel の Value 欄に貼る内容）
------BEGIN PRIVATE KEY-----\nMIIEvQIBADAN...\n-----END PRIVATE KEY-----\n
-```
+### ③ GOOGLE_CALENDAR_ID / ④ GOOGLE_SPREADSHEET_ID
 
-```
-（.env.local に書く場合）
-GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nMIIEvQIBADAN...\n-----END PRIVATE KEY-----\n"
-```
-
-> 💡 **よくある質問**
->
-> **「`\n` という文字が入っているけど大丈夫？」** → 大丈夫です。
-> これは改行を表す記号で、プログラムが自動的に本物の改行へ戻します。
-> 手で改行に直す必要はありません。
->
-> **「ダブルクォートを付けたまま貼ってしまった」** → 大丈夫です。
-> 前後の引用符が付いていても自動的に取り除くようにしてあります。
-> 空白が混ざった場合や、本物の改行のまま貼った場合も動きます。
-
-### ③ GOOGLE_CALENDAR_ID
-
-手順5でメモしたカレンダーIDです。
-
-```
-GOOGLE_CALENDAR_ID=amulea.163@gmail.com
-```
-
-### ④ GOOGLE_SPREADSHEET_ID
-
-手順6でメモしたスプレッドシートIDです。
-
-```
-GOOGLE_SPREADSHEET_ID=1AbCdEfGhIjKlMnOpQrStUvWxYz1234567890
-```
+上の「おすすめ」の②③と同じです。
 
 ---
 
