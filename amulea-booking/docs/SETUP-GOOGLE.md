@@ -8,7 +8,7 @@ Google カレンダーとスプレッドシートに、予約を自動で書き�
 
 > **先に読んでください**
 > 途中で分からなくなっても、設定を間違えても、壊れることはありません。
-> `MOCK_MODE=true` のあいだは、この設定なしでも予約システムは動きます。
+> この設定をしなくても予約システムは動きます（カレンダー連携が働かないだけです）。
 > 落ち着いて1つずつ進めてください。
 
 ---
@@ -22,7 +22,7 @@ Google カレンダーとスプレッドシートに、予約を自動で書き�
 手順4  鍵ファイル（JSON）をダウンロードする
 手順5  カレンダーを、そのアカウントに共有する
 手順6  スプレッドシートを作り、同じく共有する
-手順7  取得した値を .env.local に書く
+手順7  取得した4つの値を登録する（Vercel の画面）
 ```
 
 「サービスアカウント」とは、**人ではなくプログラム専用の Google アカウント**
@@ -171,7 +171,26 @@ https://docs.google.com/spreadsheets/d/1AbCdEfGhIjKlMnOpQrStUvWxYz1234567890/edi
 
 ---
 
-## 手順7　.env.local に書き込む
+## 手順7　4つの値を登録する
+
+ここまでで集めた4つの値を、アプリに教えます。
+
+**登録する場所は、動かしている環境によって変わります。**
+
+### 🌐 Vercel で公開している場合（通常はこちら）
+
+`.env.local` というファイルは**作りません**。Vercel の画面に登録します。
+
+1. Vercel で `amulea-booking` プロジェクトを開く
+2. **Settings** → **Environments** → **Production** をクリック
+3. 下のほうにある **Add Environment Variable** から、
+   次ページの4つを1つずつ登録する
+4. すべて登録したら **Deployments** タブ →
+   一番上の行の **⋯** → **Redeploy**
+
+   > ⚠️ 環境変数は登録しただけでは反映されません。必ず Redeploy してください。
+
+### 💻 パソコンで動かしている場合
 
 プロジェクトのフォルダにある `.env.example` をコピーして
 `.env.local` という名前のファイルを作ります。
@@ -180,7 +199,11 @@ https://docs.google.com/spreadsheets/d/1AbCdEfGhIjKlMnOpQrStUvWxYz1234567890/edi
 cp .env.example .env.local
 ```
 
-`.env.local` をテキストエディタで開き、次の4つを埋めます。
+`.env.local` をテキストエディタで開いて埋めます。
+
+---
+
+### 登録する4つの値
 
 ### ① GOOGLE_CLIENT_EMAIL
 
@@ -199,16 +222,30 @@ GOOGLE_CLIENT_EMAIL=amulea-booking@amulea-booking-123456.iam.gserviceaccount.com
 "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADAN...（とても長い）...\n-----END PRIVATE KEY-----\n",
 ```
 
-**`"` から `"` までを、ダブルクォートごと**コピーして貼り付けます。
+**`-----BEGIN` から `-----END PRIVATE KEY-----\n` までをコピー**します。
+
+- **Vercel に貼る場合** … 前後のダブルクォート `"` は**含めません**
+- **`.env.local` に書く場合** … ダブルクォートで囲みます
 
 ```
+（Vercel の Value 欄に貼る内容）
+-----BEGIN PRIVATE KEY-----\nMIIEvQIBADAN...\n-----END PRIVATE KEY-----\n
+```
+
+```
+（.env.local に書く場合）
 GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nMIIEvQIBADAN...\n-----END PRIVATE KEY-----\n"
 ```
 
 > 💡 **よくある質問**
-> 「`\n` という文字が入っているけど大丈夫？」→ **大丈夫です。**
+>
+> **「`\n` という文字が入っているけど大丈夫？」** → 大丈夫です。
 > これは改行を表す記号で、プログラムが自動的に本物の改行へ戻します。
-> 手で改行に直さないでください。
+> 手で改行に直す必要はありません。
+>
+> **「ダブルクォートを付けたまま貼ってしまった」** → 大丈夫です。
+> 前後の引用符が付いていても自動的に取り除くようにしてあります。
+> 空白が混ざった場合や、本物の改行のまま貼った場合も動きます。
 
 ### ③ GOOGLE_CALENDAR_ID
 
@@ -228,15 +265,12 @@ GOOGLE_SPREADSHEET_ID=1AbCdEfGhIjKlMnOpQrStUvWxYz1234567890
 
 ---
 
-## 手順8　連携をONにして動作確認
+## 手順8　動作確認
 
-`.env.local` の先頭にある `MOCK_MODE` を `false` にします。
+`MOCK_MODE` を触る必要はありません。
+**Google の認証情報を登録した時点で、カレンダー連携は自動的に有効になります。**
 
-```
-MOCK_MODE=false
-```
-
-サーバーを起動し直します。
+パソコンで動かしている場合は、サーバーを起動し直してください。
 
 ```bash
 npm run dev
@@ -244,10 +278,10 @@ npm run dev
 
 ### 確認すること
 
-1. ブラウザで <http://localhost:3000/admin> を開きます。
+1. 管理画面（`https://（あなたのURL）/admin`）を開きます。
 2. 管理画面にログインします。
-3. 上部に「Google カレンダー連携が未設定です」という
-   黄色い帯が **出ていなければ成功**です。
+3. 上部の「準備中の項目」から
+   **「Google カレンダー未連携」の行が消えていれば成功**です。
 4. **手動で予約を登録** から、テストの予約を1件入れてみます。
 5. Google カレンダーを開き、
    `Amulea予約｜○○` という予定ができていれば成功です。
@@ -262,14 +296,17 @@ npm run dev
 
 | 症状 | 原因と対処 |
 | --- | --- |
-| 「Google 認証に失敗しました」 | `GOOGLE_PRIVATE_KEY` の貼り付けミス。ダブルクォートごと貼り直してください |
+| 「Google 認証に失敗しました」 | `GOOGLE_PRIVATE_KEY` の貼り付けミス。`-----BEGIN` から `-----END PRIVATE KEY-----` まで全部入っているか確認してください |
 | 「Google API エラー（events.insert / HTTP 404）」 | `GOOGLE_CALENDAR_ID` が違います。手順5で確認し直してください |
 | 「Google API エラー（events.insert / HTTP 403）」 | カレンダーの共有権限が「閲覧」になっています。**予定の変更権限**に変更してください |
 | 「Google API エラー（values.append / HTTP 403）」 | スプレッドシートの共有が「閲覧者」になっています。**編集者**に変更してください |
-| カレンダーに何も出ない | `MOCK_MODE=false` になっているか確認し、サーバーを再起動してください |
+| カレンダーに何も出ない | Vercel で **Redeploy** したか確認してください（環境変数は登録しただけでは反映されません） |
+| 「Google 認証に失敗しました」が消えない | 秘密鍵の貼り付け漏れです。`-----END PRIVATE KEY-----` まで入っているか確認してください |
 
 エラーメッセージは管理画面には出ません。
-サーバーを起動しているターミナルに表示されます。
+
+- **Vercel の場合** … プロジェクト → **Logs**（または Deployments → 対象 → Runtime Logs）
+- **パソコンの場合** … サーバーを起動しているターミナル
 
 ---
 

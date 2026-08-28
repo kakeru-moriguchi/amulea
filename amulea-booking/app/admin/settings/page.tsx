@@ -134,6 +134,8 @@ function SettingsForm({ lineEnabled }: { lineEnabled: boolean }) {
     <div className="flex flex-col gap-8 pb-6">
       {message && <Notice tone={tone}>{message}</Notice>}
 
+      <Diagnostics />
+
       {/* ============ 予約の受付 ============ */}
       <Section title="予約の受付" description="一時的に新規予約を止めたいときに使います。">
         <Toggle
@@ -722,6 +724,71 @@ function Textarea({
         className="rounded-xl border border-champagne-500/30 bg-white px-4 py-3 text-umber-800"
       />
     </label>
+  );
+}
+
+/* ==================================================================
+   接続診断
+   ------------------------------------------------------------------
+   Google 連携がうまくいかないときに、どこで止まっているかを
+   その場で確認できるようにします。
+   ================================================================== */
+
+type Check = { name: string; ok: boolean; detail: string; hint?: string };
+
+function Diagnostics() {
+  const [checks, setChecks] = useState<Check[] | null>(null);
+  const [running, setRunning] = useState(false);
+  const [error, setError] = useState("");
+
+  const run = useCallback(async () => {
+    setRunning(true);
+    setError("");
+    const result = await apiGet<{ checks: Check[] }>("/api/admin/diagnostics");
+    if (result.ok) setChecks(result.data.checks);
+    else setError(result.error.message);
+    setRunning(false);
+  }, []);
+
+  return (
+    <Section
+      title="接続診断"
+      description="Google カレンダー・スプレッドシートに正しくつながっているかを確認します。うまく動かないときにお使いください。"
+    >
+      <Button variant="outline" size="md" loading={running} onClick={() => void run()}>
+        接続を確認する
+      </Button>
+
+      {error && <Notice tone="error">{error}</Notice>}
+
+      {checks && (
+        <ul className="flex flex-col gap-2">
+          {checks.map((c) => (
+            <li
+              key={c.name}
+              className={`rounded-xl border p-3 ${
+                c.ok
+                  ? "border-forest/25 bg-forest-light"
+                  : "border-clay/30 bg-clay-light"
+              }`}
+            >
+              <p className="flex items-center gap-2 text-[0.88rem] text-umber-800">
+                <span aria-hidden="true">{c.ok ? "✅" : "❌"}</span>
+                {c.name}
+              </p>
+              <p className="mt-1 text-[0.78rem] leading-relaxed break-all text-umber-600">
+                {c.detail}
+              </p>
+              {!c.ok && c.hint && (
+                <p className="mt-1.5 text-[0.78rem] leading-relaxed text-clay">
+                  → {c.hint}
+                </p>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+    </Section>
   );
 }
 
