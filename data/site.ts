@@ -65,7 +65,7 @@ export const site = {
    */
   links: {
     /** 公式LINE の友だち追加 URL */
-    line: "https://lin.ee/vvo1LP5",
+    line: "https://lin.ee/6qS4zkU",
     /** LINE ID（画面に表示する用）。空文字 "" のときは表示されません */
     lineId: "",
     /** Instagram プロフィール URL */
