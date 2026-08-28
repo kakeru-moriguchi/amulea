@@ -77,15 +77,26 @@ export async function GET(): Promise<Response> {
     const checks: Check[] = [];
 
     /* ---- 1. 環境変数が入っているか ---- */
+    /*
+      手順書に載せている「記入例」をそのまま貼ってしまうことがあるため、
+      例と一致していないかを確認します。
+    */
+    const SAMPLE_EMAIL = "amulea-booking@amulea-booking-123456.iam.gserviceaccount.com";
+    const isSample = env.google.clientEmail === SAMPLE_EMAIL;
+
     checks.push({
       name: "サービスアカウントのメールアドレス",
-      ok: Boolean(env.google.clientEmail),
-      detail: env.google.clientEmail
-        ? env.google.clientEmail
-        : "未設定（GOOGLE_CLIENT_EMAIL）",
-      hint: env.google.clientEmail
-        ? undefined
-        : "Vercel の環境変数に GOOGLE_CLIENT_EMAIL を追加してください。",
+      ok: Boolean(env.google.clientEmail) && !isSample,
+      detail: !env.google.clientEmail
+        ? "未設定（GOOGLE_CLIENT_EMAIL）"
+        : isSample
+          ? `${env.google.clientEmail}\n※ これは手順書の「記入例」と同じ値です。`
+          : env.google.clientEmail,
+      hint: !env.google.clientEmail
+        ? "Vercel の環境変数に GOOGLE_CLIENT_EMAIL を追加してください。"
+        : isSample
+          ? "手順書の例ではなく、ご自身の JSON ファイルの client_email の値を貼ってください。"
+          : undefined,
     });
 
     const keyLooksValid =
@@ -96,7 +107,13 @@ export async function GET(): Promise<Response> {
       detail: keyLooksValid
         ? `${present(env.google.privateKey)}・BEGIN と END を確認`
         : env.google.privateKey
-          ? "形が正しくありません（BEGIN または END が見つかりません）"
+          ? /*
+               形が違うときだけ、先頭の数文字を見せます。
+               正しい鍵の先頭は "-----BEGIN PRIV..." という公開された決まり文句なので、
+               ここを見せても秘密は漏れません。
+               逆に「何を貼ってしまったか」がすぐ分かります。
+            */
+            `形が正しくありません。先頭が「${env.google.privateKey.slice(0, 15)}」で始まっています（正しくは「-----BEGIN PRIV」）`
           : "未設定（GOOGLE_PRIVATE_KEY）",
       hint: keyLooksValid
         ? undefined
