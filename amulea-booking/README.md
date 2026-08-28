@@ -79,14 +79,31 @@ STEP 4  LINE 連携を設定する        （30〜40分）→ docs/SETUP-LINE.md
    （GitHub アカウントでログインするのが簡単です）。
 2. **Add New → Project** をクリックします。
 3. このリポジトリ（`amulea`）を選びます。
-4. **重要**: **Root Directory** の **Edit** をクリックし、
+4. **重要その1**: **Root Directory** の **Edit** をクリックし、
    `amulea-booking` を選びます。
 
    > ⚠️ ここを設定しないと、既存のホームページのほうが
    > 公開されてしまいます。必ず変更してください。
 
-5. **Deploy** をクリックします。
-6. 数分で `https://amulea-booking-xxxx.vercel.app` のような
+5. **重要その2**: **Framework Preset** が **Next.js** になっていることを
+   確認します。`Other` になっていると、ビルドは成功するのに
+   次のエラーで失敗します。
+
+   ```
+   No Output Directory named "public" found after the Build completed.
+   ```
+
+   これは Vercel が成果物を `public` フォルダから探してしまうためです
+   （Next.js の成果物は `.next` です）。
+
+   > 💡 このプロジェクトには `vercel.json` で `"framework": "nextjs"` を
+   > 指定してあるため、通常は自動的に正しく認識されます。
+   > それでも上のエラーが出る場合は、
+   > **Settings → Build & Deployment → Framework Preset** を
+   > `Next.js` に変更してから Redeploy してください。
+
+6. **Deploy** をクリックします。
+7. 数分で `https://amulea-booking-xxxx.vercel.app` のような
    URLが発行されます。
 
 ### 独自ドメインを使う場合
