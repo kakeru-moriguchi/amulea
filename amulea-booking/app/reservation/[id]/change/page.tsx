@@ -15,7 +15,7 @@
 "use client";
 
 import { use, useCallback, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { goTo, replaceTo } from "@/lib/client/navigate";
 import SessionGate from "@/components/SessionGate";
 import DatePicker from "@/components/booking/DatePicker";
 import TimeSlots from "@/components/booking/TimeSlots";
@@ -43,7 +43,6 @@ type BookingConfig = {
 };
 
 function ChangeBody({ id }: { id: string }) {
-  const router = useRouter();
 
   const [reservation, setReservation] = useState<Reservation | null>(null);
   const [config, setConfig] = useState<BookingConfig | null>(null);
@@ -100,8 +99,8 @@ function ChangeBody({ id }: { id: string }) {
       return;
     }
 
-    router.replace("/my-reservations?changed=1");
-  }, [date, startTime, id, router]);
+    replaceTo("/my-reservations?changed=1");
+  }, [date, startTime, id]);
 
   if (loading) {
     return (
@@ -120,7 +119,7 @@ function ChangeBody({ id }: { id: string }) {
         <Brand />
         <Content className="flex flex-col gap-5">
           <Notice tone="error">{loadError || "予約が見つかりませんでした。"}</Notice>
-          <Button variant="outline" block onClick={() => router.push("/my-reservations")}>
+          <Button variant="outline" block onClick={() => goTo("/my-reservations")}>
             予約一覧へ戻る
           </Button>
         </Content>
@@ -206,7 +205,7 @@ function ChangeBody({ id }: { id: string }) {
             variant="quiet"
             size="md"
             block
-            onClick={() => router.push("/my-reservations")}
+            onClick={() => goTo("/my-reservations")}
           >
             変更せずに戻る
           </Button>

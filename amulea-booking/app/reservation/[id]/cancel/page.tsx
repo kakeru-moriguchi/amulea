@@ -13,7 +13,7 @@
 "use client";
 
 import { use, useCallback, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { goTo, replaceTo } from "@/lib/client/navigate";
 import SessionGate from "@/components/SessionGate";
 import { Button } from "@/components/ui/Button";
 import { Brand, Card, Content, Screen, SectionHeading } from "@/components/ui/Layout";
@@ -33,7 +33,6 @@ type Reservation = {
 };
 
 function CancelBody({ id }: { id: string }) {
-  const router = useRouter();
 
   const [reservation, setReservation] = useState<Reservation | null>(null);
   const [loading, setLoading] = useState(true);
@@ -103,7 +102,7 @@ function CancelBody({ id }: { id: string }) {
               心よりお待ちしております。
             </p>
           </div>
-          <Button block onClick={() => router.replace("/my-reservations")}>
+          <Button block onClick={() => replaceTo("/my-reservations")}>
             予約一覧へ戻る
           </Button>
         </Content>
@@ -117,7 +116,7 @@ function CancelBody({ id }: { id: string }) {
         <Brand />
         <Content className="flex flex-col gap-5">
           <Notice tone="error">{loadError || "予約が見つかりませんでした。"}</Notice>
-          <Button variant="outline" block onClick={() => router.push("/my-reservations")}>
+          <Button variant="outline" block onClick={() => goTo("/my-reservations")}>
             予約一覧へ戻る
           </Button>
         </Content>
@@ -175,7 +174,7 @@ function CancelBody({ id }: { id: string }) {
 
         <div className="flex flex-col gap-2.5">
           {/* 目立たせすぎず、しかし押し間違えない配置にしています */}
-          <Button variant="outline" block onClick={() => router.push("/my-reservations")}>
+          <Button variant="outline" block onClick={() => goTo("/my-reservations")}>
             キャンセルしない（戻る）
           </Button>
           <Button variant="umber" block loading={working} onClick={() => void cancel()}>
