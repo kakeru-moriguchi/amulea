@@ -27,6 +27,7 @@
 
 import {
   isGoogleEnabled,
+  isLineLoginEnabled,
   isLineMessagingEnabled,
 } from "../config/env";
 import {
@@ -856,5 +857,6 @@ export function integrationStatus() {
   return {
     googleCalendar: isGoogleEnabled(),
     lineMessaging: isLineMessagingEnabled(),
+    lineLogin: isLineLoginEnabled(),
   };
 }

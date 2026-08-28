@@ -3,22 +3,26 @@
  * ------------------------------------------------------------------
  * 開発用の仮ログインです。
  *
- * ★ MOCK_MODE=true のときしか動きません。
- *   本番（MOCK_MODE=false）では必ず 404 を返します。
- *   LINE の設定が済んでいない段階でも、予約〜変更〜キャンセルまでの
- *   流れを一通り確認できるようにするためのものです。
+ * ★ LINE ログインが未設定のあいだだけ動きます。
+ *   LINE の設定が完了すると自動的に 404 を返すようになり、
+ *   本物の LINE ログインだけが有効になります。
+ *   （閉じ忘れる心配はありません）
+ *
+ *   LINE の設定前でも、予約〜変更〜キャンセルまでの流れや
+ *   Google カレンダー連携を一通り確認できるようにするためのものです。
  */
 
 import { createCustomerSession } from "@/lib/auth/session";
 import { error, guardMutation, handle, ok } from "@/lib/api/http";
-import { env } from "@/lib/config/env";
+import { isDevLoginAllowed } from "@/lib/config/env";
 import { readJson, cleanLine } from "@/lib/security/validation";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request): Promise<Response> {
   return handle("auth/dev", async () => {
-    if (!env.mockMode) {
+    /* LINE ログインが設定済みなら、この入口は閉じます */
+    if (!isDevLoginAllowed()) {
       return error(404, "ご利用いただけません。", "not_found");
     }
 

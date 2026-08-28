@@ -33,8 +33,11 @@ export function verifyAdminPassword(password: unknown): boolean {
     return false;
   }
 
-  /* モックモード（開発中）は、平文の開発用パスワードでログインできます */
-  if (env.mockMode && !env.admin.passwordHash) {
+  /*
+    ADMIN_PASSWORD_HASH が未設定のあいだだけ、開発用の平文パスワードで
+    ログインできます。ハッシュを設定すると、この入口は自動的に閉じます。
+  */
+  if (!env.admin.passwordHash) {
     const expected = Buffer.from(env.admin.devPassword);
     const actual = Buffer.from(password);
     return expected.length === actual.length && timingSafeEqual(expected, actual);

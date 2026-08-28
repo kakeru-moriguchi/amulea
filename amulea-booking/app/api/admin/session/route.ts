@@ -7,7 +7,7 @@
 import { getAdminSession } from "@/lib/auth/session";
 import { handle, ok } from "@/lib/api/http";
 import { integrationStatus } from "@/lib/domain/booking";
-import { env } from "@/lib/config/env";
+import { env, isDevLoginAllowed, isLineLoginEnabled } from "@/lib/config/env";
 
 export const dynamic = "force-dynamic";
 
@@ -17,7 +17,12 @@ export async function GET(): Promise<Response> {
     return ok({
       loggedIn: Boolean(session),
       mockMode: env.mockMode,
-      integrations: integrationStatus(),
+      integrations: {
+        ...integrationStatus(),
+        lineLogin: isLineLoginEnabled(),
+      },
+      /* まだ誰でも仮ログインできる状態かどうか（管理画面に警告を出すため） */
+      devLoginOpen: isDevLoginAllowed(),
     });
   });
 }
