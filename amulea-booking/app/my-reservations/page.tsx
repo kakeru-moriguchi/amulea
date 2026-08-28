@@ -10,7 +10,6 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import Link from "next/link";
 import SessionGate from "@/components/SessionGate";
 import { Button, ButtonLink } from "@/components/ui/Button";
 import { Brand, Card, Content, Screen, SectionHeading } from "@/components/ui/Layout";
@@ -146,18 +145,18 @@ function ReservationCard({
 
       {!past && !cancelled && (
         <div className="mt-4 flex gap-2">
-          <Link
+          <a
             href={`/reservation/${reservation.id}/change`}
             className="flex min-h-[46px] flex-1 items-center justify-center rounded-full border border-champagne-500/50 text-[0.85rem] tracking-[0.1em] text-umber-700"
           >
             日時を変更
-          </Link>
-          <Link
+          </a>
+          <a
             href={`/reservation/${reservation.id}/cancel`}
             className="flex min-h-[46px] flex-1 items-center justify-center rounded-full border border-umber-200 text-[0.85rem] tracking-[0.1em] text-umber-500"
           >
             キャンセル
-          </Link>
+          </a>
         </div>
       )}
     </Card>

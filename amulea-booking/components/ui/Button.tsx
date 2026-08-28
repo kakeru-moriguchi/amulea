@@ -11,7 +11,6 @@
 
 "use client";
 
-import Link from "next/link";
 import type { ReactNode } from "react";
 
 type Variant = "gold" | "umber" | "outline" | "quiet";
@@ -98,9 +97,14 @@ export function ButtonLink({
       </a>
     );
   }
+  /*
+    サイト内のリンクも、あえて素の <a> にしています。
+    理由は lib/client/navigate.ts のコメントを参照してください。
+    （LINEアプリ内ブラウザで「押しても何も起きない」のを防ぐため）
+  */
   return (
-    <Link href={href} className={classes}>
+    <a href={href} className={classes}>
       {children}
-    </Link>
+    </a>
   );
 }

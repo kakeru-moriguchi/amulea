@@ -4,7 +4,6 @@
  * ヘッダー・本文の幅・区切り線など、全ページ共通の見た目です。
  */
 
-import Link from "next/link";
 import type { ReactNode } from "react";
 
 /** ページ全体の枠（スマートフォンでちょうど良い幅に収めます） */
@@ -20,14 +19,14 @@ export function Screen({ children }: { children: ReactNode }) {
 export function Brand({ href = "/" }: { href?: string }) {
   return (
     <header className="border-b border-champagne-500/20 bg-ivory/95 px-5 py-4 backdrop-blur-md">
-      <Link href={href} className="flex flex-col items-center leading-none">
+      <a href={href} className="flex flex-col items-center leading-none">
         <span className="font-display text-[1.6rem] tracking-[0.3em] text-umber-700">
           Amulea
         </span>
         <span className="mt-1.5 text-[0.55rem] tracking-[0.35em] text-champagne-700">
           PRIVATE RELAXATION SALON
         </span>
-      </Link>
+      </a>
     </header>
   );
 }

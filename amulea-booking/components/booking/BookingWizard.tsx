@@ -19,7 +19,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { goTo as exitTo, replaceTo } from "@/lib/client/navigate";
 import { apiGet, apiPost } from "@/lib/client/api";
 import { Button } from "@/components/ui/Button";
 import { Card, Content, Brand, Screen, StickyFooter } from "@/components/ui/Layout";
@@ -101,7 +101,6 @@ const CATEGORY_LABELS: Record<Menu["category"], string> = {
    ------------------------------------------------------------------ */
 
 export default function BookingWizard({ session }: { session: Session }) {
-  const router = useRouter();
 
   const [config, setConfig] = useState<MenusResponse | null>(null);
   const [loading, setLoading] = useState(true);
@@ -242,8 +241,8 @@ export default function BookingWizard({ session }: { session: Session }) {
     } catch {
       /* 消せなくても支障はありません */
     }
-    router.replace(`/reservation/complete?id=${result.data.reservation.id}`);
-  }, [draft, router, goTo, update]);
+    replaceTo(`/reservation/complete?id=${result.data.reservation.id}`);
+  }, [draft, goTo, update]);
 
   /* ---------------- 画面 ---------------- */
 
@@ -276,7 +275,7 @@ export default function BookingWizard({ session }: { session: Session }) {
         <Brand />
         <Content className="flex flex-col justify-center gap-6">
           <Notice tone="info">{config.booking.suspendedMessage}</Notice>
-          <Button variant="outline" onClick={() => router.push("/")} block>
+          <Button variant="outline" onClick={() => exitTo("/")} block>
             トップへ戻る
           </Button>
         </Content>
@@ -529,7 +528,7 @@ export default function BookingWizard({ session }: { session: Session }) {
               variant="quiet"
               size="md"
               block
-              onClick={() => router.push("/")}
+              onClick={() => exitTo("/")}
             >
               トップへ戻る
             </Button>
