@@ -30,11 +30,25 @@ function num(name: string, fallback: number): number {
 
 /**
  * Google のサービスアカウント秘密鍵。
- * Vercel の環境変数へ貼り付けると改行が "\n" の2文字になるため、
- * 実際の改行へ戻しています。
+ * ------------------------------------------------------------------
+ * 貼り付け方の違いを吸収します。どの形でも動きます。
+ *
+ *  1. JSON ファイルからコピーすると、改行が "\n" という2文字になっています
+ *     → 実際の改行へ戻します
+ *  2. .env ファイルの書き方に慣れていると、前後にダブルクォートを
+ *     付けたまま Vercel の画面へ貼ってしまうことがあります
+ *     （.env ファイルでは自動的に外されますが、Vercel では外されません）
+ *     → 前後の引用符が付いていたら取り除きます
  */
 function privateKey(name: string): string {
-  return str(name).replace(/\\n/g, "\n");
+  let value = str(name).trim();
+
+  const quoted =
+    (value.startsWith('"') && value.endsWith('"')) ||
+    (value.startsWith("'") && value.endsWith("'"));
+  if (quoted && value.length >= 2) value = value.slice(1, -1);
+
+  return value.replace(/\\n/g, "\n");
 }
 
 export const env = {
