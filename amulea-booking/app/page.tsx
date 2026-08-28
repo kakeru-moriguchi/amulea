@@ -1,14 +1,25 @@
 /**
  * トップページ（公式LINEのリッチメニューから最初に開く画面）
- * ------------------------------------------------------------------
+ * ==================================================================
  * ここでは「予約する」か「予約を確認する」かだけを選んでいただきます。
  * 迷わせないよう、導線は2つに絞っています。
+ *
+ * ★ この画面を SessionGate で包んでいる理由
+ *   LINEの認証が終わったあと、LINEは必ず
+ *   「LIFFのエンドポイントURL」＝このトップページへ戻します。
+ *   つまり、認証の往復を受け止められるのはこの画面だけです。
+ *
+ *   ここでログインを済ませておけば、次に開く予約画面では
+ *   すでにログイン済みの状態になり、往復そのものが起きません。
  */
 
+"use client";
+
+import SessionGate from "@/components/SessionGate";
 import { ButtonLink } from "@/components/ui/Button";
 import { Brand, Content, Screen, SectionHeading } from "@/components/ui/Layout";
 
-export default function HomePage() {
+function Home() {
   return (
     <Screen>
       <Brand />
@@ -52,4 +63,8 @@ export default function HomePage() {
       </Content>
     </Screen>
   );
+}
+
+export default function HomePage() {
+  return <SessionGate>{() => <Home />}</SessionGate>;
 }
