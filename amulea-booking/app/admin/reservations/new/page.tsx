@@ -70,6 +70,12 @@ function NewReservationForm() {
       if (menuResult.ok) {
         setMenus(menuResult.data.menus);
         setMenuId(menuResult.data.menus[0]?.id ?? "");
+        if (menuResult.data.menus.length === 0) {
+          setMessage("メニューが1件も登録されていません。設定画面をご確認ください。");
+        }
+      } else {
+        /* ★ 黙って空欄にせず、必ず理由を表示します */
+        setMessage(menuResult.error.message);
       }
       if (optionResult.ok) setOptions(optionResult.data.options);
       setLoading(false);

@@ -25,6 +25,7 @@ import {
   readRange,
   writeRange,
 } from "../google/sheets";
+import { log } from "../security/logger";
 import { sanitizeForSheet } from "../security/validation";
 import {
   matchesFilter,
@@ -225,14 +226,27 @@ export class SheetsStore implements DataStore {
 
   /* ---------------------------- 設定 ---------------------------- */
 
+  /**
+   * 設定値を読み取ります。
+   *
+   * ★ 読み取りに失敗しても null を返して処理を続けます。
+   *   メニューや営業設定が読めないだけで予約システム全体が止まると、
+   *   お客様が予約できなくなってしまうためです。
+   *   （呼び出し元が初期値で補完します）
+   *
+   *   ※ 予約データの読み取りは別扱いです。そちらは失敗を握りつぶすと
+   *     「埋まっている枠が空いて見える」ことになり二重予約につながるため、
+   *     必ずエラーとして扱います。
+   */
   private async readSetting<T>(key: string): Promise<T | null> {
-    await this.init();
-    const rows = await readRange(`${env.google.settingsSheetName}!A:B`);
-    const row = rows.find((r) => unescape(r[0] ?? "") === key);
-    if (!row || !row[1]) return null;
     try {
+      await this.init();
+      const rows = await readRange(`${env.google.settingsSheetName}!A:B`);
+      const row = rows.find((r) => unescape(r[0] ?? "") === key);
+      if (!row || !row[1]) return null;
       return JSON.parse(unescape(row[1])) as T;
-    } catch {
+    } catch (error) {
+      log.error("設定の読み取りに失敗（初期値で継続します）", error, { key });
       return null;
     }
   }
