@@ -24,12 +24,18 @@ const NAV = [
   { href: "/admin/settings", label: "設定" },
 ] as const;
 
-export type Integrations = { googleCalendar: boolean; lineMessaging: boolean };
+export type Integrations = {
+  googleCalendar: boolean;
+  lineMessaging: boolean;
+  lineLogin: boolean;
+};
 
 type SessionInfo = {
   loggedIn: boolean;
   mockMode: boolean;
   integrations: Integrations;
+  /** まだ誰でも仮ログインできる状態か（LINE未設定のあいだ true） */
+  devLoginOpen: boolean;
 };
 
 export default function AdminShell({
@@ -119,16 +125,43 @@ export default function AdminShell({
         </nav>
       </header>
 
-      {/* 連携状態のお知らせ */}
-      {(info.mockMode || !info.integrations.googleCalendar) && (
-        <div className="border-b border-champagne-500/25 bg-champagne-50 px-4 py-2.5">
-          <p className="mx-auto max-w-3xl text-[0.76rem] leading-relaxed text-umber-600">
-            {info.mockMode
-              ? "開発モードで動作しています。予約データはサーバーの再起動で消え、Google・LINE への連携は行われません。"
-              : !info.integrations.googleCalendar
-                ? "Google カレンダー連携が未設定です。予約データのみで空き時間を判定しています。"
-                : ""}
-          </p>
+      {/* 準備状況のお知らせ（設定が完了すると自動的に消えます） */}
+      {(info.mockMode ||
+        info.devLoginOpen ||
+        !info.integrations.googleCalendar ||
+        !info.integrations.lineMessaging) && (
+        <div className="border-b border-champagne-500/25 bg-champagne-50 px-4 py-3">
+          <div className="mx-auto flex max-w-3xl flex-col gap-1.5">
+            <p className="text-[0.72rem] tracking-[0.14em] text-champagne-700">
+              準備中の項目
+            </p>
+            <ul className="flex flex-col gap-1 text-[0.76rem] leading-relaxed text-umber-600">
+              {info.mockMode && (
+                <li>
+                  ・MOCK_MODE が有効です。Google・LINE への連携はすべて停止しています。
+                </li>
+              )}
+              {info.devLoginOpen && (
+                <li className="text-clay">
+                  ・
+                  <strong className="font-normal">
+                    どなたでも仮のお客様としてログインできる状態です
+                  </strong>
+                  （LINEログインが未設定のため）。本番のお客様をお迎えする前に、
+                  LINE連携を完了してください。
+                </li>
+              )}
+              {!info.integrations.googleCalendar && (
+                <li>
+                  ・Google カレンダー未連携。予約データのみで空き時間を判定しています
+                  （カレンダーの私用予定は反映されません）。
+                </li>
+              )}
+              {!info.integrations.lineMessaging && (
+                <li>・LINE通知が未設定です。お客様・管理者への通知は送信されません。</li>
+              )}
+            </ul>
+          </div>
         </div>
       )}
 

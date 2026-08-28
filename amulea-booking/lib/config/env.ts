@@ -42,13 +42,18 @@ export const env = {
   isProduction: process.env.NODE_ENV === "production",
 
   /**
-   * モックモード
+   * モックモード（強制オフのスイッチ）
    * ------------------------------------------------------------
-   * true のあいだは Google / LINE への接続を一切行わず、
-   * サーバー内のメモリ上のデータだけで全機能が動作します。
-   * （Phase 1 の開発・デザイン確認用）
+   * true にすると、認証情報が揃っていても Google / LINE へは
+   * 一切接続しません。手元での開発や、連携を一時的に止めたいときに使います。
+   *
+   * ★ 通常は設定不要です（初期値 false）。
+   *   各連携は「その連携の認証情報が揃っているかどうか」で
+   *   独立して有効になります。そのため
+   *     Google だけ先に設定して試す → あとで LINE を追加する
+   *   という段階的な導入ができます。
    */
-  mockMode: bool("MOCK_MODE", true),
+  mockMode: bool("MOCK_MODE", false),
 
   /** アプリの公開 URL（CSRF の Origin 判定などに使用） */
   appUrl: str("APP_URL", "http://localhost:3000"),
@@ -114,7 +119,7 @@ export const env = {
 
 /**
  * Google カレンダー連携が使える状態かどうか
- * （MOCK_MODE が false で、かつ必要な値がすべて揃っているとき）
+ * （必要な値がすべて揃っていて、MOCK_MODE で止められていないとき）
  */
 export function isGoogleEnabled(): boolean {
   return (
@@ -143,6 +148,26 @@ export function isLineLoginEnabled(): boolean {
 /** LINE 通知（Messaging API）が使える状態かどうか */
 export function isLineMessagingEnabled(): boolean {
   return !env.mockMode && Boolean(env.line.messagingAccessToken);
+}
+
+/**
+ * 開発用の簡易ログインを許可してよいか
+ * ==================================================================
+ * ★ お客様の本人確認は LINE ログインで行います。
+ *   まだ LINE の設定が済んでいない段階では本人確認の手段が無く、
+ *   予約画面をまったく試せなくなってしまいます。
+ *
+ *   そこで「LINE ログインが未設定のあいだだけ」、
+ *   誰でも仮のお客様としてログインできる開発用の入口を開けています。
+ *
+ * ★ LINE の設定が完了すると、この入口は自動的に閉じます。
+ *   閉じ忘れる心配はありません。
+ *
+ * ★ 開いているあいだは管理画面に警告を表示します。
+ *   本番のお客様をお迎えする前に、必ず LINE 連携を完了してください。
+ */
+export function isDevLoginAllowed(): boolean {
+  return !isLineLoginEnabled();
 }
 
 /**
