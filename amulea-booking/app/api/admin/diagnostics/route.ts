@@ -110,6 +110,16 @@ export async function GET(): Promise<Response> {
 
     const keyLooksValid =
       env.google.privateKey.includes("BEGIN") && env.google.privateKey.includes("END");
+
+    /*
+      よくある取り違え。
+      JSON ファイルをメモ帳で開いて「private_key」を検索すると、
+      1つ手前にある "private_key_id" のほうが先に見つかります。
+      その値（16進数40文字ほど）をコピーしてしまう事故が多いため、
+      形から見分けて名指しします。
+    */
+    const looksLikeKeyId =
+      !keyLooksValid && /^[0-9a-f]{20,64}$/i.test(env.google.privateKey.trim());
     checks.push({
       name: "秘密鍵の形",
       ok: keyLooksValid,
@@ -122,11 +132,15 @@ export async function GET(): Promise<Response> {
                ここを見せても秘密は漏れません。
                逆に「何を貼ってしまったか」がすぐ分かります。
             */
-            `形が正しくありません。先頭が「${env.google.privateKey.slice(0, 15)}」で始まっています（正しくは「-----BEGIN PRIV」）`
+            looksLikeKeyId
+              ? `「private_key」ではなく「private_key_id」の値が入っています（先頭「${env.google.privateKey.slice(0, 12)}…」）`
+              : `形が正しくありません。先頭が「${env.google.privateKey.slice(0, 15)}」で始まっています（正しくは「-----BEGIN PRIV」）`
           : "未設定（GOOGLE_PRIVATE_KEY）",
       hint: keyLooksValid
         ? undefined
-        : "-----BEGIN PRIVATE KEY----- から -----END PRIVATE KEY----- まで、途中で切れずに貼れているか確認してください。",
+        : looksLikeKeyId
+          ? "JSONを検索すると、1つ手前にある private_key_id が先に見つかります。その次にある「private_key」（-----BEGIN PRIVATE KEY----- で始まる長い値）を使ってください。JSONを丸ごと GOOGLE_SERVICE_ACCOUNT_JSON に貼るのが確実です。"
+          : "-----BEGIN PRIVATE KEY----- から -----END PRIVATE KEY----- まで、途中で切れずに貼れているか確認してください。",
     });
 
     checks.push({

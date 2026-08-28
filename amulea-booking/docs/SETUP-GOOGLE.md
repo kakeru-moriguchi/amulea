@@ -266,6 +266,18 @@ amulea-booking@あなたのプロジェクト名.iam.gserviceaccount.com
 
 JSONファイルをメモ帳で開き、`Ctrl + F` で `private_key` を検索します。
 
+> ⚠️ **よくある間違い**
+> JSONの中には、よく似た名前の項目が**2つ並んでいます**。
+>
+> ```json
+> "private_key_id": "3faca8a2567ab57...",          ← ❌ こちらではありません
+> "private_key": "-----BEGIN PRIVATE KEY-----\n...",  ← ✅ こちらです
+> ```
+>
+> 検索すると **`private_key_id` のほうが先に見つかります。**
+> 必ず、**`-----BEGIN PRIVATE KEY-----` で始まる長いほう**を使ってください。
+> （この取り違えを防ぐため、上の「JSONを丸ごと貼る方式」を推奨しています）
+
 ```json
 "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADAN...\n-----END PRIVATE KEY-----\n",
 ```
