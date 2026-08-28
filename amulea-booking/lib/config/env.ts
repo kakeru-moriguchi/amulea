@@ -29,19 +29,19 @@ function num(name: string, fallback: number): number {
 }
 
 /**
- * Google のサービスアカウント秘密鍵。
+ * 秘密鍵の文字列を整えます。
  * ------------------------------------------------------------------
  * 貼り付け方の違いを吸収します。どの形でも動きます。
  *
- *  1. JSON ファイルからコピーすると、改行が "\n" という2文字になっています
+ *  1. JSON からコピーすると改行が "\n" という2文字になっています
  *     → 実際の改行へ戻します
- *  2. .env ファイルの書き方に慣れていると、前後にダブルクォートを
- *     付けたまま Vercel の画面へ貼ってしまうことがあります
- *     （.env ファイルでは自動的に外されますが、Vercel では外されません）
- *     → 前後の引用符が付いていたら取り除きます
+ *  2. .env の書き方に慣れていると、前後にダブルクォートを付けたまま
+ *     Vercel の画面へ貼ってしまうことがあります
+ *     （.env では自動的に外れますが、Vercel では外れません）
+ *     → 引用符が付いていたら取り除きます
  */
-function privateKey(name: string): string {
-  let value = str(name).trim();
+function normalizeKey(raw: string): string {
+  let value = raw.trim();
 
   const quoted =
     (value.startsWith('"') && value.endsWith('"')) ||
@@ -50,6 +50,55 @@ function privateKey(name: string): string {
 
   return value.replace(/\\n/g, "\n");
 }
+
+/**
+ * サービスアカウントの JSON を丸ごと受け取る仕組み
+ * ==================================================================
+ * ★ いちばん間違えにくい設定方法です。
+ *
+ *   ダウンロードした JSON ファイルを開いて「全選択（Ctrl+A）→ コピー」し、
+ *   GOOGLE_SERVICE_ACCOUNT_JSON にそのまま貼るだけで設定が終わります。
+ *
+ *   秘密鍵は数千文字あり、「-----BEGIN から -----END まで」を
+ *   正確に選ぶ作業は失敗しやすいため、その工程をなくしています。
+ *
+ * ★ 間違えて GOOGLE_PRIVATE_KEY のほうへ JSON を丸ごと貼ってしまった
+ *   場合も、同じように読み取ります。
+ */
+function parseServiceAccountJson(raw: string): {
+  clientEmail: string;
+  privateKey: string;
+} | null {
+  const text = raw.trim();
+  if (!text.startsWith("{")) return null;
+
+  try {
+    const parsed = JSON.parse(text) as {
+      client_email?: unknown;
+      private_key?: unknown;
+    };
+    const privateKey =
+      typeof parsed.private_key === "string" ? normalizeKey(parsed.private_key) : "";
+    if (!privateKey) return null;
+
+    return {
+      clientEmail: typeof parsed.client_email === "string" ? parsed.client_email : "",
+      privateKey,
+    };
+  } catch {
+    return null;
+  }
+}
+
+/*
+  JSON が貼られていればそれを最優先します。
+  JSON の中のメールアドレスと秘密鍵は必ず対になっているため、
+  個別に設定された値より信頼できるからです。
+  （組み合わせがずれていると、そもそも認証に失敗します）
+*/
+const serviceAccount =
+  parseServiceAccountJson(process.env.GOOGLE_SERVICE_ACCOUNT_JSON ?? "") ??
+  parseServiceAccountJson(process.env.GOOGLE_PRIVATE_KEY ?? "");
 
 export const env = {
   /** 本番かどうか */
@@ -92,9 +141,11 @@ export const env = {
   /** ----------------------------- Google ----------------------------- */
   google: {
     /** サービスアカウントのメールアドレス */
-    clientEmail: str("GOOGLE_CLIENT_EMAIL"),
+    clientEmail: serviceAccount?.clientEmail || str("GOOGLE_CLIENT_EMAIL"),
     /** サービスアカウントの秘密鍵 */
-    privateKey: privateKey("GOOGLE_PRIVATE_KEY"),
+    privateKey: serviceAccount?.privateKey || normalizeKey(str("GOOGLE_PRIVATE_KEY")),
+    /** JSON を丸ごと貼る方式で設定されたかどうか（診断表示用） */
+    fromJson: Boolean(serviceAccount),
     /** 予約を書き込む Google カレンダー ID（例: amulea.163@gmail.com） */
     calendarId: str("GOOGLE_CALENDAR_ID"),
     /** 予約を保存する Google スプレッドシート ID */
