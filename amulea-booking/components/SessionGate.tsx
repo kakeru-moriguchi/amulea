@@ -87,6 +87,48 @@ export type Session = { name: string; mockMode: boolean };
 
 type Phase = "checking" | "ready" | "error";
 
+/**
+ * LINEの認証から戻ってきたあとの行き先を、一時的に預けるための印。
+ * ------------------------------------------------------------------
+ * LINEは認証が終わると、LIFFに登録された「エンドポイントURL」
+ * （＝このサイトのトップページ）へ戻します。
+ * そのため、行き先はトップページのアドレスに ?next= として持たせます。
+ */
+const NEXT_PARAM = "next";
+
+/** 往復を繰り返さないための印（同じ画面の中だけで有効） */
+const LOGIN_TRIED_KEY = "amulea.liff.loginTried";
+
+function loginTried(): boolean {
+  try {
+    return sessionStorage.getItem(LOGIN_TRIED_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+function setLoginTried(value: boolean): void {
+  try {
+    if (value) sessionStorage.setItem(LOGIN_TRIED_KEY, "1");
+    else sessionStorage.removeItem(LOGIN_TRIED_KEY);
+  } catch {
+    /* 使えない環境でも動作を止めません */
+  }
+}
+
+/**
+ * ?next= の値を、安全な「このサイト内のページ」だけに限定します。
+ * ★ 外部サイトのアドレスを入れられると、
+ *   LINEから戻ったお客様を偽サイトへ飛ばせてしまいます（フィッシング）。
+ *   そのため、先頭が「/」で、かつ「//」で始まらないものだけを許可します。
+ */
+function safeNextPath(raw: string | null): string | null {
+  if (!raw) return null;
+  if (!raw.startsWith("/")) return null;
+  if (raw.startsWith("//")) return null;
+  return raw;
+}
+
 export default function SessionGate({
   children,
 }: {
@@ -95,6 +137,23 @@ export default function SessionGate({
   const [phase, setPhase] = useState<Phase>("checking");
   const [session, setSession] = useState<Session | null>(null);
   const [message, setMessage] = useState("");
+
+  /**
+   * ログインが成立したときの共通処理。
+   * もともと開こうとしていた画面（?next=）があれば、そちらへ送ります。
+   * 戻り値が true なら「移動したので、ここでは何も描かない」という意味です。
+   */
+  const finish = useCallback((name: string, mockMode: boolean): void => {
+    const next = safeNextPath(
+      new URLSearchParams(window.location.search).get(NEXT_PARAM),
+    );
+    if (next && next !== window.location.pathname + window.location.search) {
+      window.location.replace(next);
+      return;
+    }
+    setSession({ name, mockMode });
+    setPhase("ready");
+  }, []);
 
   const start = useCallback(async () => {
     setPhase("checking");
@@ -109,8 +168,7 @@ export default function SessionGate({
 
     /* すでにログイン済み（Cookie が有効） */
     if (me.data.loggedIn) {
-      setSession({ name: me.data.name, mockMode: me.data.mockMode });
-      setPhase("ready");
+      finish(me.data.name, me.data.mockMode);
       return;
     }
 
@@ -122,8 +180,7 @@ export default function SessionGate({
         setPhase("error");
         return;
       }
-      setSession({ name: dev.data.name, mockMode: true });
-      setPhase("ready");
+      finish(dev.data.name, true);
       return;
     }
 
@@ -133,10 +190,39 @@ export default function SessionGate({
       await liff.init({ liffId: me.data.liffId });
 
       if (!liff.isLoggedIn()) {
-        /* LINE のログイン画面へ移動します（戻ってくるとログイン済みになります） */
+        /*
+          ★ ここが「ホームに戻される」不具合の要点です。
+
+          LINEは認証が終わると、LIFFに登録された
+          「エンドポイントURL」＝トップページへ戻します。
+          つまり /booking から認証へ送っても、戻り先はトップページです。
+          トップページが何もしなければ、お客様はそこで取り残されます。
+
+          そこで、認証の往復は必ずトップページで行い、
+          もともと開こうとしていた画面は ?next= で持ち回ります。
+        */
+        const here = window.location.pathname + window.location.search;
+        if (window.location.pathname !== "/") {
+          window.location.replace(`/?${NEXT_PARAM}=${encodeURIComponent(here)}`);
+          return;
+        }
+
+        /* 認証へ送ったのに戻ってこられない場合、往復を繰り返させません */
+        if (loginTried()) {
+          setLoginTried(false);
+          setMessage(
+            "LINEのログインを完了できませんでした。\n公式LINEのメニューから開き直してください。",
+          );
+          setPhase("error");
+          return;
+        }
+
+        setLoginTried(true);
         liff.login({ redirectUri: window.location.href });
         return;
       }
+
+      setLoginTried(false);
 
       const idToken = liff.getIDToken();
       if (!idToken) {
@@ -155,15 +241,15 @@ export default function SessionGate({
         return;
       }
 
-      setSession({ name: login.data.name, mockMode: false });
-      setPhase("ready");
+      /* ログインできたので、もともと開こうとしていた画面へ送ります */
+      finish(login.data.name, false);
     } catch {
       setMessage(
         "LINEとの連携に失敗しました。\n通信環境をご確認のうえ、公式LINEのメニューから開き直してください。",
       );
       setPhase("error");
     }
-  }, []);
+  }, [finish]);
 
   useEffect(() => {
     void start();
