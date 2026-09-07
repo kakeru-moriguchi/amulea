@@ -59,7 +59,14 @@ export default function HomePage() {
         {/* キャッチコピー */}
         <div className="flex flex-1 items-center justify-center px-6 pt-4 pb-16 sm:pb-20">
           <div className="mx-auto max-w-3xl text-center">
-            <div className="gold-rule mx-auto mb-9 w-20" aria-hidden="true" />
+            {/* 写真のロゴのすぐ下に添える一言 */}
+            {mainVisual.caption && (
+              <p className="text-[0.72rem] tracking-[0.34em] text-champagne-700 sm:text-[0.8rem]">
+                {mainVisual.caption}
+              </p>
+            )}
+
+            <div className="gold-rule mx-auto mt-8 mb-9 w-20" aria-hidden="true" />
 
             <h1 className="text-[1.5rem] leading-[1.9] tracking-[0.18em] text-umber-800 sm:text-[2.1rem]">
               {site.catchCopy.map((line) => (
