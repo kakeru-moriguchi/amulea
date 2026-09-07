@@ -13,9 +13,10 @@ import { therapist } from "@/data/therapist";
 /**
  * ホーム（/）
  * ------------------------------------------------------------------
- * メインビジュアル / キャッチコピー / Amulea の紹介 /
- * セラピスト・メニュー・料金表・ご予約への導線 /
- * Instagram・公式LINE / 営業時間 をまとめたトップページです。
+ * 上から順に、
+ *   メインビジュアル / 施術メニュー / 料金のご案内 / Amulea について /
+ *   セラピスト紹介 / ご利用案内（営業時間・公式LINE・Instagram）/ ご予約
+ * を並べたトップページです。
  */
 
 /**
@@ -81,99 +82,6 @@ export default function HomePage() {
               </ButtonLink>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* ============================================================
-          Amulea の紹介
-          ============================================================ */}
-      <section className="px-5 py-24 sm:px-8 sm:py-32">
-        <div className="mx-auto max-w-6xl">
-          <Reveal>
-            <SectionHeading
-              en={site.about.heading}
-              ja={site.about.headingJa}
-            />
-          </Reveal>
-
-          <div className="mt-16 grid items-start gap-12 lg:grid-cols-[0.85fr_1fr] lg:gap-20">
-            <Reveal>
-              {/* 文章が長いため、読み進めても写真が見えるようにしています */}
-              <div className="lg:sticky lg:top-28">
-                {/* サロンの世界観が伝わる写真 */}
-                <Photo
-                  src=""
-                  alt="Amulea の施術室"
-                  tone="ivory"
-                  className="aspect-[4/5] rounded-[2px]"
-                  sizes="(max-width: 1024px) 100vw, 45vw"
-                />
-              </div>
-            </Reveal>
-
-            <Reveal delay={0.15}>
-              <div className="space-y-6">
-                {site.about.paragraphs.map((p) => (
-                  <RichText
-                    key={p.slice(0, 14)}
-                    text={p}
-                    className="text-[0.88rem] leading-[2.3] text-umber-700/90 sm:text-[0.95rem]"
-                  />
-                ))}
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================
-          セラピストへの導線
-          ============================================================ */}
-      <section className="relative overflow-hidden bg-umber-800 px-5 py-24 sm:px-8 sm:py-32">
-        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[0.85fr_1fr] lg:gap-20">
-          <Reveal>
-            <Photo
-              src={therapist.photo.src}
-              alt={therapist.photo.alt}
-              tone="champagne"
-              className="aspect-[3/4] rounded-[2px]"
-              sizes="(max-width: 1024px) 100vw, 40vw"
-            />
-          </Reveal>
-
-          <Reveal delay={0.15}>
-            <div>
-              <SectionHeading
-                en="Therapist"
-                ja="セラピスト紹介"
-                align="left"
-                tone="dark"
-              />
-              <p className="mt-8 font-display text-3xl tracking-[0.2em] text-champagne-200">
-                {therapist.name}
-              </p>
-              <p className="mt-2 text-[0.62rem] tracking-[0.35em] text-champagne-400/80 uppercase">
-                {therapist.nameEn} / {therapist.role}
-              </p>
-              {/* 自己紹介の冒頭2段落を抜粋して掲載します */}
-              <div className="mt-8 max-w-lg space-y-5">
-                {therapist.introduction.paragraphs.slice(0, 2).map((p) => (
-                  <RichText
-                    key={p.slice(0, 14)}
-                    text={p}
-                    className="text-[0.88rem] leading-[2.3] text-ivory/75 sm:text-[0.95rem]"
-                    emphasisClassName="text-champagne-300"
-                  />
-                ))}
-              </div>
-              <div className="mt-10">
-                <ButtonLink href="/therapist" variant="outline" tone="dark">
-                  セラピストについて
-                  <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </ButtonLink>
-              </div>
-            </div>
-          </Reveal>
         </div>
       </section>
 
@@ -289,6 +197,99 @@ export default function HomePage() {
                 料金表を見る
                 <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </ButtonLink>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ============================================================
+          Amulea の紹介
+          ============================================================ */}
+      <section className="px-5 py-24 sm:px-8 sm:py-32">
+        <div className="mx-auto max-w-6xl">
+          <Reveal>
+            <SectionHeading
+              en={site.about.heading}
+              ja={site.about.headingJa}
+            />
+          </Reveal>
+
+          <div className="mt-16 grid items-start gap-12 lg:grid-cols-[0.85fr_1fr] lg:gap-20">
+            <Reveal>
+              {/* 文章が長いため、読み進めても写真が見えるようにしています */}
+              <div className="lg:sticky lg:top-28">
+                {/* サロンの世界観が伝わる写真 */}
+                <Photo
+                  src=""
+                  alt="Amulea の施術室"
+                  tone="ivory"
+                  className="aspect-[4/5] rounded-[2px]"
+                  sizes="(max-width: 1024px) 100vw, 45vw"
+                />
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.15}>
+              <div className="space-y-6">
+                {site.about.paragraphs.map((p) => (
+                  <RichText
+                    key={p.slice(0, 14)}
+                    text={p}
+                    className="text-[0.88rem] leading-[2.3] text-umber-700/90 sm:text-[0.95rem]"
+                  />
+                ))}
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================
+          セラピストへの導線
+          ============================================================ */}
+      <section className="relative overflow-hidden bg-umber-800 px-5 py-24 sm:px-8 sm:py-32">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[0.85fr_1fr] lg:gap-20">
+          <Reveal>
+            <Photo
+              src={therapist.photo.src}
+              alt={therapist.photo.alt}
+              tone="champagne"
+              className="aspect-[3/4] rounded-[2px]"
+              sizes="(max-width: 1024px) 100vw, 40vw"
+            />
+          </Reveal>
+
+          <Reveal delay={0.15}>
+            <div>
+              <SectionHeading
+                en="Therapist"
+                ja="セラピスト紹介"
+                align="left"
+                tone="dark"
+              />
+              <p className="mt-8 font-display text-3xl tracking-[0.2em] text-champagne-200">
+                {therapist.name}
+              </p>
+              <p className="mt-2 text-[0.62rem] tracking-[0.35em] text-champagne-400/80 uppercase">
+                {therapist.nameEn} / {therapist.role}
+              </p>
+              {/* 自己紹介の冒頭2段落を抜粋して掲載します */}
+              <div className="mt-8 max-w-lg space-y-5">
+                {therapist.introduction.paragraphs.slice(0, 2).map((p) => (
+                  <RichText
+                    key={p.slice(0, 14)}
+                    text={p}
+                    className="text-[0.88rem] leading-[2.3] text-ivory/75 sm:text-[0.95rem]"
+                    emphasisClassName="text-champagne-300"
+                  />
+                ))}
+              </div>
+              <div className="mt-10">
+                <ButtonLink href="/therapist" variant="outline" tone="dark">
+                  セラピストについて
+                  <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </ButtonLink>
+              </div>
             </div>
           </Reveal>
         </div>
