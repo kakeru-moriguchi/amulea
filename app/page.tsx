@@ -61,7 +61,7 @@ export default function HomePage() {
           <div className="mx-auto max-w-3xl text-center">
             {/* 写真のロゴのすぐ下に添える一言 */}
             {mainVisual.caption && (
-              <p className="text-[0.72rem] tracking-[0.34em] text-champagne-700 sm:text-[0.8rem]">
+              <p className="text-[1.15rem] tracking-[0.2em] text-champagne-700 sm:text-[1.6rem]">
                 {mainVisual.caption}
               </p>
             )}
