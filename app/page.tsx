@@ -93,7 +93,7 @@ export default function HomePage() {
             {mainVisual.note && (
               <RichText
                 text={mainVisual.note}
-                className="mt-9 text-[0.78rem] leading-[2.1] text-umber-700/70 sm:text-[0.83rem]"
+                className="mt-9 text-[1.15rem] leading-[2] text-umber-700/80 sm:text-[1.6rem]"
               />
             )}
           </div>
