@@ -39,7 +39,7 @@ export default function HomePage() {
           写真の上に文字を重ねず、そのまま見せています。
           差し替えるときは data/site.ts の mainVisual を変更してください。
         */}
-        <div className="relative h-[46svh] min-h-[300px] w-full sm:h-[54svh] lg:h-[58svh]">
+        <div className="relative h-[42svh] min-h-[280px] w-full sm:h-[46svh] lg:h-[44svh]">
           <Photo
             src={mainVisual.image}
             alt={`${site.name}（${site.nameJa}）`}
@@ -66,7 +66,7 @@ export default function HomePage() {
               </p>
             )}
 
-            <div className="gold-rule mx-auto mt-8 mb-9 w-20" aria-hidden="true" />
+            <div className="gold-rule mx-auto mt-7 mb-8 w-20" aria-hidden="true" />
 
             <h1 className="text-[1.5rem] leading-[1.9] tracking-[0.18em] text-umber-800 sm:text-[2.1rem]">
               {site.catchCopy.map((line) => (
@@ -80,7 +80,7 @@ export default function HomePage() {
               {site.catchLead}
             </p>
 
-            <div className="mt-10 flex flex-col items-center justify-center gap-3.5 sm:flex-row">
+            <div className="mt-9 flex flex-col items-center justify-center gap-3.5 sm:flex-row">
               <ButtonLink href="/contact" variant="gold">
                 ご予約はこちら
               </ButtonLink>
@@ -88,6 +88,14 @@ export default function HomePage() {
                 メニューを見る
               </ButtonLink>
             </div>
+
+            {/* ボタンの下に添える一文 */}
+            {mainVisual.note && (
+              <RichText
+                text={mainVisual.note}
+                className="mt-9 text-[0.78rem] leading-[2.1] text-umber-700/70 sm:text-[0.83rem]"
+              />
+            )}
           </div>
         </div>
       </section>

@@ -84,12 +84,18 @@ export const mainVisual: {
   image: string;
   objectPosition: string;
   caption: string;
+  note: string;
 } = {
   image: "/images/heder.png",
   /** 写真のどの部分を見せるか */
   objectPosition: "object-center",
   /** 写真のすぐ下に添える一言。空文字 "" にすると表示されません */
   caption: "女性専用　完全予約制",
+  /**
+   * ボタンの下に添える一文。空文字 "" にすると表示されません。
+   * 文中の \n は、書いた位置でそのまま改行されます。
+   */
+  note: "建物はちょっと年季が入っていますが、\n扉の先には、ほっと落ち着ける癒しの空間が広がっています。",
 };
 
 /**
