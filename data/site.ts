@@ -23,6 +23,15 @@ export const site = {
   about: {
     heading: "About Amulea",
     headingJa: "Amulea について",
+    /**
+     * 紹介文の横に並べる写真。
+     * 画像を public/images/ に置き、src にパスを指定します。
+     * 空文字 "" のあいだはプレースホルダーが表示されます。
+     */
+    photo: {
+      src: "/images/heya.png",
+      alt: "Amulea の施術室",
+    },
     paragraphs: [
       "Amulea（アミュレア）は、日常から少し離れて、心と身体をそっと休めるための完全予約制プライベートリラクゼーションサロンです。",
       "やわらかな灯りと心地よい香りに包まれながら、誰にも気を遣わない、あなただけの時間を。",

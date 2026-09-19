@@ -235,8 +235,8 @@ export default function HomePage() {
               <div className="lg:sticky lg:top-28">
                 {/* サロンの世界観が伝わる写真 */}
                 <Photo
-                  src=""
-                  alt="Amulea の施術室"
+                  src={site.about.photo.src}
+                  alt={site.about.photo.alt}
                   tone="ivory"
                   className="aspect-[4/5] rounded-[2px]"
                   sizes="(max-width: 1024px) 100vw, 45vw"
