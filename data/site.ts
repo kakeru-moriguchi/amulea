@@ -91,13 +91,13 @@ export const site = {
  */
 export const mainVisual: {
   image: string;
-  objectPosition: string;
+  imageClass: string;
   caption: string;
   note: string;
 } = {
   image: "/images/heder.png",
-  /** 写真のどの部分を見せるか */
-  objectPosition: "object-center",
+  /** 写真の見せ方（位置や拡大） */
+  imageClass: "object-center",
   /** 写真のすぐ下に添える一言。空文字 "" にすると表示されません */
   caption: "女性専用　完全予約制",
   /**
@@ -126,16 +126,23 @@ export const mainVisual: {
 export const pageHeader: {
   image: string;
   overlay: "light" | "dark";
-  objectPosition: string;
+  imageClass: string;
 } = {
   image: "/images/heder.png",
   overlay: "light",
   /**
-   * 写真のどの部分を見せるか。
-   * 画面が狭いほど写真は左右が切り取られるため、
-   * 見出しの文字と写真の中のロゴが重ならない位置に寄せています。
+   * 写真の見せ方。
+   *
+   * 写真は横長のため、画面が狭いほど左右が大きく切り取られます。
+   * 写真の中央にはサロン名のロゴが入っており、そのままだと
+   * 文字が途中で切れた状態で表示されてしまいます。
+   *
+   * そのため画面が狭いときは、左側（月とかすみ）だけが映るように
+   * 拡大して左に寄せています。広い画面では写真全体が収まるため、
+   * 中央のまま等倍で表示します。
    */
-  objectPosition: "object-[22%_50%] sm:object-center",
+  imageClass:
+    "object-left scale-[1.9] origin-left sm:object-center sm:scale-100 sm:origin-center",
 };
 
 /**

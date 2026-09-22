@@ -46,7 +46,7 @@ export default function HomePage() {
             tone="ivory"
             className="h-full w-full"
             sizes="100vw"
-            objectPosition={mainVisual.objectPosition}
+            imageClass={mainVisual.imageClass}
             priority
           />
           {/* 下端をアイボリーに溶け込ませ、下の文章となじませます */}
