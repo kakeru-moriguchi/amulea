@@ -69,9 +69,13 @@ export default function Header() {
     <>
       <header
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        transparent
-          ? "bg-transparent py-5"
-          : "bg-ivory/92 py-3 shadow-[0_1px_0_0_rgba(189,154,88,0.22)] backdrop-blur-md"
+        open
+          ? // メニューを開いている間は、メニューと同じ色で塗りつぶします。
+            // スクロールした項目がヘッダーの下を通って見えるのを防ぐためです。
+            "bg-umber-800 py-5"
+          : transparent
+            ? "bg-transparent py-5"
+            : "bg-ivory/92 py-3 shadow-[0_1px_0_0_rgba(189,154,88,0.22)] backdrop-blur-md"
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 sm:px-8">
@@ -181,7 +185,16 @@ export default function Header() {
         hidden={!open}
         className="fixed inset-0 z-40 bg-umber-800 lg:hidden"
       >
-        <div className="flex h-full flex-col justify-center px-8 pb-16">
+        {/*
+          画面の高さが足りないときは、中央揃えのままだと先頭の項目が
+          ヘッダーの下に潜り込んで見えなくなってしまいます。
+          外側でスクロールさせ、内側を min-h-full にすることで、
+          余裕があるときは中央揃え・足りないときは上から順に
+          スクロールして全項目に届くようにしています。
+          pt-24 はヘッダーのロゴと重ならないための余白です。
+        */}
+        <div className="h-full overflow-y-auto overscroll-contain px-8 pt-24 pb-14">
+          <div className="flex min-h-full flex-col justify-center">
           <nav aria-label="メインメニュー（モバイル）">
             <ul className="flex flex-col gap-1">
               {navigation.map((item, i) => {
@@ -236,6 +249,7 @@ export default function Header() {
             >
               Instagram
             </a>
+            </div>
           </div>
         </div>
       </div>
