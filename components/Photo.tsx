@@ -23,8 +23,11 @@ type Props = {
   priority?: boolean;
   /** レスポンシブ表示幅のヒント */
   sizes?: string;
-  /** 写真のどの部分を見せるか（Tailwind の object-position クラス） */
-  objectPosition?: string;
+  /**
+   * 写真そのものに付けるクラス。
+   * 見せる位置（object-left など）や拡大（scale-[1.9] など）を指定します。
+   */
+  imageClass?: string;
 };
 
 const toneStyles: Record<PhotoTone, { bg: string; motif: string; label: string }> = {
@@ -52,7 +55,7 @@ export default function Photo({
   className = "aspect-[4/5]",
   priority = false,
   sizes = "(max-width: 768px) 100vw, 50vw",
-  objectPosition = "object-center",
+  imageClass = "object-center",
 }: Props) {
   const hasPhoto = Boolean(src && src.trim() !== "");
 
@@ -65,7 +68,7 @@ export default function Photo({
           fill
           sizes={sizes}
           priority={priority}
-          className={`object-cover ${objectPosition}`}
+          className={`object-cover ${imageClass}`}
         />
       ) : (
         <Placeholder tone={tone} alt={alt} />

@@ -23,16 +23,21 @@ export const site = {
   about: {
     heading: "About Amulea",
     headingJa: "Amulea について",
+    /**
+     * 紹介文の横に並べる写真。
+     * 画像を public/images/ に置き、src にパスを指定します。
+     * 空文字 "" のあいだはプレースホルダーが表示されます。
+     */
+    photo: {
+      src: "/images/heya.png",
+      alt: "Amulea の施術室",
+    },
     paragraphs: [
       "Amulea（アミュレア）は、日常から少し離れて、心と身体をそっと休めるための完全予約制プライベートリラクゼーションサロンです。",
-      "扉を開けたその瞬間から、忙しい毎日を少しだけ忘れてほしい。",
-      "やわらかな灯り、心地よい香り、静かに流れる時間。\n誰にも気を遣うことなく、あなただけの時間をゆっくりとお過ごしいただける空間をご用意しています。",
-      "Amuleaが大切にしているのは、決まった施術をただ行うことではありません。",
-      "その日の身体の状態やお疲れの場所、気分などを丁寧にうかがいながら、力加減や施術内容を一人ひとりに合わせて整えていきます。",
-      "アロマの香りと人の手のぬくもりに包まれながら、身体の力がゆっくりと抜け、呼吸が深くなっていく。",
-      "何かを頑張るための時間ではなく、\n**何もしなくていい、自分を休ませるための時間。**",
-      "「疲れたときに帰ってこられる場所」\n「ここに来ると、なんだかほっとする」",
-      "Amuleaが、あなたにとってそんな特別な場所になれたら嬉しく思います。",
+      "やわらかな灯りと心地よい香りに包まれながら、誰にも気を遣わない、あなただけの時間を。",
+      "その日の身体の状態やお疲れに合わせて、力加減や施術内容を一人ひとり丁寧に整えていきます。",
+      "**何かを頑張るためではなく、\n何もしなくていい、自分を休ませるための時間。**",
+      "「疲れたときに帰ってこられる場所」\nAmuleaが、そんなほっとできる場所になれたら嬉しく思います。",
     ],
   },
 
@@ -40,7 +45,7 @@ export const site = {
   hours: {
     /** 曜日ごとの営業時間。休業日は time を「定休日」などにしてください */
     schedule: [
-      { days: "月 - 金", time: "13:00 - 23:00" },
+      { days: "月 - 金", time: "12:00 - 23:00" },
       { days: "土・日・祝", time: "12:00 - 23:00" },
       { days: "不定休", time: "休業日は公式LINEにてお知らせします" },
     ],
@@ -65,7 +70,7 @@ export const site = {
    */
   links: {
     /** 公式LINE の友だち追加 URL */
-    line: "https://lin.ee/vvo1LP5",
+    line: "https://lin.ee/6qS4zkU",
     /** LINE ID（画面に表示する用）。空文字 "" のときは表示されません */
     lineId: "",
     /** Instagram プロフィール URL */
@@ -84,10 +89,22 @@ export const site = {
  * 重ねていません。ロゴの入っていない写真に差し替える場合は、
  * app/page.tsx にサロン名の表示を戻す必要があります。
  */
-export const mainVisual: { image: string; objectPosition: string } = {
+export const mainVisual: {
+  image: string;
+  imageClass: string;
+  caption: string;
+  note: string;
+} = {
   image: "/images/heder.png",
-  /** 写真のどの部分を見せるか */
-  objectPosition: "object-center",
+  /** 写真の見せ方（位置や拡大） */
+  imageClass: "object-center",
+  /** 写真のすぐ下に添える一言。空文字 "" にすると表示されません */
+  caption: "女性専用　完全予約制",
+  /**
+   * ボタンの下に添える一文。空文字 "" にすると表示されません。
+   * 文中の \n は、書いた位置でそのまま改行されます。
+   */
+  note: "建物はちょっと年季が入っていますが、\n扉の先には、ほっと落ち着ける癒しの空間が広がっています。",
 };
 
 /**
@@ -109,16 +126,23 @@ export const mainVisual: { image: string; objectPosition: string } = {
 export const pageHeader: {
   image: string;
   overlay: "light" | "dark";
-  objectPosition: string;
+  imageClass: string;
 } = {
   image: "/images/heder.png",
   overlay: "light",
   /**
-   * 写真のどの部分を見せるか。
-   * 画面が狭いほど写真は左右が切り取られるため、
-   * 見出しの文字と写真の中のロゴが重ならない位置に寄せています。
+   * 写真の見せ方。
+   *
+   * 写真は横長のため、画面が狭いほど左右が大きく切り取られます。
+   * 写真の中央にはサロン名のロゴが入っており、そのままだと
+   * 文字が途中で切れた状態で表示されてしまいます。
+   *
+   * そのため画面が狭いときは、左側（月とかすみ）だけが映るように
+   * 拡大して左に寄せています。広い画面では写真全体が収まるため、
+   * 中央のまま等倍で表示します。
    */
-  objectPosition: "object-[22%_50%] sm:object-center",
+  imageClass:
+    "object-left scale-[1.9] origin-left sm:object-center sm:scale-100 sm:origin-center",
 };
 
 /**

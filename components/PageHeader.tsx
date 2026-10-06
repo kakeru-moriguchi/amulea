@@ -42,7 +42,7 @@ export default function PageHeader({
           tone={tone}
           className="h-full w-full"
           sizes="100vw"
-          objectPosition={pageHeader.objectPosition}
+          imageClass={pageHeader.imageClass}
           priority
         />
         <div aria-hidden="true" className={`absolute inset-0 ${overlay}`} />
