@@ -224,8 +224,24 @@ npm run start   # 本番サーバー
 
 ## 10. 同じリポジトリにある別アプリ
 
-`amulea-booking/` に**予約アプリ**が入っています（LINE連携・89ファイル）。
+`amulea-booking/` に**予約アプリ**が入っています（公式LINEのリッチメニューから開く予約システム）。
 **このホームページとは別のアプリです。** ホームページの作業では触りません。
 
 ルート直下の `package.json` がホームページ、
 `amulea-booking/package.json` が予約アプリです。混同しないでください。
+
+予約アプリを触るときは、**`amulea-booking/AGENTS.md` を読んでください。**
+技術構成・画面構成・連携の状態・踏んだ落とし穴・残っている作業がまとまっています。
+
+| | ホームページ | 予約アプリ |
+| --- | --- | --- |
+| 場所 | リポジトリ直下 | `amulea-booking/` |
+| 本番URL | https://amulea.vercel.app/ | https://amulea-booking-nu.vercel.app |
+| Vercelプロジェクト | `amulea` | `amulea-booking`（Root Directory 指定あり） |
+| テスト | なし（ブラウザで目視） | `npm run e2e`（65項目） |
+
+**本番ブランチは両方とも `claude/amulea-homepage-ylwqxi` です。**
+ここに push すると、変更のあった側だけが自動で再デプロイされます。
+
+> ⚠️ ルートの `tsconfig.json` の `exclude` から `amulea-booking` を外さないでください。
+> 外すと予約アプリのファイルがホームページの型チェックに混ざり、ビルドが壊れます。

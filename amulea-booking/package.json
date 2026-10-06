@@ -9,7 +9,8 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "hash-password": "node scripts/hash-password.mjs",
-    "generate-secret": "node scripts/generate-secret.mjs"
+    "generate-secret": "node scripts/generate-secret.mjs",
+    "e2e": "node scripts/e2e.mjs"
   },
   "dependencies": {
     "next": "^16.3.2",
